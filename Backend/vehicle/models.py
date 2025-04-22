@@ -14,6 +14,8 @@ class Vehicle(models.Model):
         ],
         default='available'
     )
+    latitude = models.FloatField(default=None)
+    longitude = models.FloatField(default=None)
     assigned_to = models.ForeignKey('user.CustomUser', on_delete=models.SET_NULL, null=True, blank=True)
 
         

@@ -1,0 +1,49 @@
+from rest_framework.serializers import ModelSerializer
+from .models import Bin
+from area.models import AreaModel
+from math import radians, sin, cos, sqrt, atan2
+
+class BinSerializer(ModelSerializer):
+    class Meta:
+        model = Bin
+        fields = ['id', 'bin_type', 'area', 'capacity', 'latitude', 'longitude', 'last_collected']
+        
+    def create(self, validated_data):
+        latitude = validated_data.get('latitude')
+        longitude = validated_data.get('longitude')
+
+        if latitude and longitude:
+            flag = False
+            areas = AreaModel.objects.all()
+            for area in areas:
+                if area.latitude and area.longitude and area.radius:
+                    distance = self.haversine(longitude, latitude, area.longitude, area.latitude)
+                    if distance <= area.radius:
+                        validated_data['area'] = area
+                        flag = True
+                        break
+            if not flag:
+                raise ValueError("Bin location is not within any area radius.")
+
+        return super().create(validated_data)
+
+        
+    def update(self, instance, validated_data):
+        instance.bin_type = validated_data.get('bin_type', instance.bin_type)
+        instance.area = validated_data.get('area', instance.area)
+        instance.capacity = validated_data.get('capacity', instance.capacity)
+        instance.latitude = validated_data.get('latitude', instance.latitude)
+        instance.longitude = validated_data.get('longitude', instance.longitude)
+        instance.last_collected = validated_data.get('last_collected', instance.last_collected)
+        instance.save()
+        return instance
+
+    def haversine(self, lon1, lat1, lon2, lat2):
+        R = 6371.0
+        lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+        dlon = lon2 - lon1
+        dlat = lat2 - lat1
+        a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+        c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        distance = R * c * 1000
+        return distance

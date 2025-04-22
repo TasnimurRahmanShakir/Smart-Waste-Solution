@@ -22,4 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user/', include('user.urls')),
     path('api/vehicle/', include('vehicle.urls')),
+    path('api/requestFeedback/', include('requestFeedback.urls')),
+    path('api/bin/', include('bin.urls')),
+    path('api/area/', include('area.urls')),
 ]
