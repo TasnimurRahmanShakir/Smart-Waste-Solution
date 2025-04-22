@@ -1,5 +1,11 @@
 # Ignore environment files
 .env
+hello.js
+hi.js
+tempCodeRunnerFile.js
+# Ignore log files
+.vscode
+*__pycache__
 
 # Ignore Python bytecode
 
