@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'requestFeedback',
     'bin',
     'area',
+    'schedule',
 ]
 
 MIDDLEWARE = [

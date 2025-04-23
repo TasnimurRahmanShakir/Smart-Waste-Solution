@@ -25,4 +25,5 @@ urlpatterns = [
     path('api/requestFeedback/', include('requestFeedback.urls')),
     path('api/bin/', include('bin.urls')),
     path('api/area/', include('area.urls')),
+    path('api/schedule/', include('schedule.urls')),
 ]
