@@ -8,6 +8,10 @@ class Bin(models.Model):
         ('organic', 'Organic Waste')
     ])
     area = models.ForeignKey('area.AreaModel', on_delete=models.CASCADE, null=True, blank=True)
+    color = models.CharField(max_length=20, choices=[
+        ('red', 'Red'),
+        ('green', 'Green'),
+    ], default='green')
     capacity = models.FloatField(null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)

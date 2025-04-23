@@ -12,7 +12,8 @@ def send_notification_to_admin(message):
     )
 
 def send_notification_to_user(user_id, message):
-    print("Sending notification to user:", user_id)
+    
+    print("Sending notification to user:", user_id, "Message:", message)
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         f"user_{user_id}_notifications", 
@@ -21,4 +22,6 @@ def send_notification_to_user(user_id, message):
             "message": message
         }
     )
+    
+
     
