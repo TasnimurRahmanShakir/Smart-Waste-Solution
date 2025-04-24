@@ -1,13 +1,16 @@
-# Ignore environment files
+# Ignore compiled Python files
+**/__pycache__/
+*.pyc
+
+# Ignore environment-related files
 .env
-hello.js
-hi.js
-tempCodeRunnerFile.js
-# Ignore log files
-.vscode
-*__pycache__
+venv/
 
-# Ignore Python bytecode
+# Ignore static files generated during collectstatic
+staticfiles/
 
+# Ignore db files (if using SQLite for dev)
+db.sqlite3
 
-
+# Ignore media files
+media/
