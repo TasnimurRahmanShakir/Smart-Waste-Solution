@@ -1,13 +1,24 @@
-# Ignore environment files
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Django stuff
+*.log
+db.sqlite3
+media/
+staticfiles/
+
+# Environments
 .env
-hello.js
-hi.js
-tempCodeRunnerFile.js
-# Ignore log files
-.vscode
-*__pycache__
+venv/
+env/
 
-# Ignore Python bytecode
+# VSCode
+.vscode/
 
+# MacOS
+.DS_Store
 
-
+# Ignore compiled migration files
+**/migrations/__pycache__/
