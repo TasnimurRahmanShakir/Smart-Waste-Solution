@@ -18,6 +18,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Backend.settings')
 
 websocket_urlpatterns = [
     path('ws/notifications/', NotificationConsumer.as_asgi()),
+    
 ]
 
 application = ProtocolTypeRouter({
