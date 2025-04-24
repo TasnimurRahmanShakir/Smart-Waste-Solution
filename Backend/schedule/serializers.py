@@ -6,7 +6,12 @@ class ScheduleSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Schedule
-        fields = ['id', 'schedule_type', 'bins', 'status', 'created_at', 'area', 'requested_by']
+        fields = ['id', 'schedule_type', 'bins', 'status', 'created_at', 'area', 'requested_by', 'accepted_by', 'request_feedback']
 
-    #validate on bin cannot be in two active schedules
+    def update(self, instance, validated_data):
+        instance.status = validated_data.get('status', instance.status)
+        instance.accepted_by = validated_data.get('accepted_by', instance.accepted_by)
+        instance.save()
+        return instance
+    
     

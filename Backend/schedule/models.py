@@ -1,7 +1,7 @@
 from django.db import models
 from area.models import AreaModel
 from user.models import CustomUser
-
+from requestFeedback.models import RequestFeedback
 class Schedule(models.Model):
     SCHEDULE_TYPE_CHOICES = [
         ('daily', 'Daily Collection'),
@@ -10,9 +10,10 @@ class Schedule(models.Model):
     
     STATUS_CHOICES = [
         ('pending', 'Pending'),
+        ('ongoing', 'Ongoing'),
         ('completed', 'Completed')
     ]
-
+    request_feedback = models.OneToOneField(RequestFeedback, on_delete=models.CASCADE, null=True, blank=True)
     schedule_type = models.CharField(max_length=20, choices=SCHEDULE_TYPE_CHOICES)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     bins = models.ManyToManyField('bin.Bin', blank=True) 

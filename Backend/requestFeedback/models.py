@@ -1,13 +1,14 @@
 from django.db import models
-from user.models import CustomUser  # assuming you already have this
+from user.models import CustomUser 
 
 class RequestFeedback(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('in_progress', 'In Progress'),
         ('completed', 'Completed'),
         ('rejected', 'Rejected')
     ]
-
     requested_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     requested_bin = models.ForeignKey('bin.Bin', on_delete=models.CASCADE, null=True, blank=True) 
     message = models.TextField()
