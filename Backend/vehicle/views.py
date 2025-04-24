@@ -42,4 +42,15 @@ class VehicleAssignView(APIView):
             return Response(serializer.errors, status=400)
         except Vehicle.DoesNotExist:
             return Response({"error": "Vehicle not found"}, status=404)
-        
+
+class VehicleLocationUpdateView(APIView):
+    def patch(self, request):
+        try:
+            vehicle = Vehicle.objects.get(assigned_to=request.user)
+            serializer = VehicleSerializer(vehicle, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({"message": "Vehicle location updated successfully!", "vehicle": serializer.data}, status=200)
+            return Response(serializer.errors, status=400)
+        except Vehicle.DoesNotExist:
+            return Response({"error": "Vehicle not found"}, status=404)

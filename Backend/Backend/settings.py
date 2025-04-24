@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'bin',
     'area',
     'schedule',
+    'monitoring',
 ]
 
 MIDDLEWARE = [
