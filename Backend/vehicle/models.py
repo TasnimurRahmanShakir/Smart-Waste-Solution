@@ -21,4 +21,4 @@ class Vehicle(models.Model):
         
 
     def __str__(self):
-        return f"{self.name} vehicle assigned to ({self.assigned_to})"
+        return f"{self.vehicle_type} vehicle assigned to ({self.assigned_to})"
