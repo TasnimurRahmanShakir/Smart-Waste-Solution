@@ -1,24 +1,16 @@
-# Python
-__pycache__/
-*.py[cod]
-*.so
+# Ignore compiled Python files
+**/__pycache__/
+*.pyc
 
-# Django stuff
-*.log
-db.sqlite3
-media/
-staticfiles/
-
-# Environments
+# Ignore environment-related files
 .env
 venv/
-env/
 
-# VSCode
-.vscode/
+# Ignore static files generated during collectstatic
+staticfiles/
 
-# MacOS
-.DS_Store
+# Ignore db files (if using SQLite for dev)
+db.sqlite3
 
-# Ignore compiled migration files
-**/migrations/__pycache__/
+# Ignore media files
+media/
