@@ -34,13 +34,6 @@ class MonitoringConsumer(AsyncJsonWebsocketConsumer):
 
     async def send_vehicle_location(self, event):
         message = event['message']
-        print("Sending vehicle location:", message)
-        await self.send(text_data=json.dumps({
-            'message': message
-        }))
-    async def send_bin_color(self, event):
-        print("Sending bin color:", event['message'])
-        message = event['message']
         await self.send(text_data=json.dumps({
             'message': message
         }))

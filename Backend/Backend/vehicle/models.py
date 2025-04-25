@@ -20,7 +20,7 @@ class Vehicle(models.Model):
     assigned_to = models.OneToOneField('user.CustomUser', on_delete=models.SET_NULL, null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        super().save( *args, **kwargs)
+        super().save(*args, **kwargs)
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
             "monitoring_group",

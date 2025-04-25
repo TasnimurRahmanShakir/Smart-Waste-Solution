@@ -52,10 +52,6 @@ class ScheduleCreate(APIView):
         serializer = ScheduleSerializer(data=data)
         if serializer.is_valid():
             schedule = serializer.save()
-            for _bin in schedule.bins.all():
-                    set_color = Bin.objects.get(id=_bin.id)
-                    set_color.color = 'red'
-                    set_color.save()
             if 'request_feedback' in data:
                 try:
                     feedback = RequestFeedback.objects.get(id=data['request_feedback'])
@@ -107,13 +103,6 @@ class ScheduleUpdate(APIView):
             serializer = ScheduleSerializer(schedule, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
-                
-                for _bin in schedule.bins.all():
-                    set_color = Bin.objects.get(id=_bin.id)
-                    set_color.color = 'green'
-                    set_color.last_collected = schedule.created_at
-                    set_color.save()
-                
                 if schedule.requested_by:
                     if schedule.request_feedback:
                         schedule.request_feedback.status = 'completed'

@@ -13,13 +13,11 @@ from channels.auth import AuthMiddlewareStack
 from django.core.asgi import get_asgi_application
 from django.urls import path
 from notification.consumers import NotificationConsumer
-from monitoring.consumer import MonitoringConsumer
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Backend.settings')
 
 websocket_urlpatterns = [
     path('ws/notifications/', NotificationConsumer.as_asgi()),
-    path('ws/monitoring/', MonitoringConsumer.as_asgi()),
     
 ]
 
