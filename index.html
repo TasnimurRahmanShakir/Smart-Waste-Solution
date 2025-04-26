@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <title>Map</title>
+  <style>
+    #map {
+      height: 500px;
+      width: 800px;
+      border: 1px solid black;
+      margin: 20px auto;
+    }
+
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>City Waste Monitoring Map</h1>
+  <div id="map"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const binUrl = 'http://127.0.0.1:8000/api/bin/';
+      const vehicleUrl = 'http://127.0.0.1:8000/api/vehicle/';
+      const map = L.map('map').setView([46.6895, -119.23395], 9); 
+
+      const binMarkers = {};
+      const vehicleMarkers = {};
+
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      
+      function updateBinMarker(bin) {
+        if (isNaN(bin.latitude) || isNaN(bin.longitude)) {
+          console.warn(`Invalid coordinates for bin ${bin.id}`);
+          return;
+        }
+        console.log("Bin Data:", bin);
+
+        const iconUrl = bin.color === 'red'
+          ? '/icons/icons8-location-35.png'
+          : '/icons/icons8-location-35_green.png';
+
+        const icon = L.icon({
+          iconUrl: iconUrl,
+          iconSize: [30, 30],
+          iconAnchor: [15, 30],
+        });
+
+        if (binMarkers[bin.id]) {
+          map.removeLayer(binMarkers[bin.id]);
+        }
+
+        const marker = L.marker([bin.latitude, bin.longitude], { icon: icon });
+        marker.bindPopup(`🗑️ Bin ID: ${bin.id}`);
+        marker.addTo(map);
+        binMarkers[bin.id] = marker;
+      }
+
+      
+      function updateVehicleMarker(vehicle) {
+        if (isNaN(vehicle.latitude) || isNaN(vehicle.longitude)) {
+          console.warn(`Invalid coordinates for vehicle ${vehicle.id}`);
+          return;
+        }
+        console.log("Vehicle Data:", vehicle.id);
+        let iconUrl = '/icons/icons8-pickup-35.png';
+
+        const icon = L.icon({
+          iconUrl: iconUrl,
+          iconSize: [35, 35],
+          iconAnchor: [17, 35],
+        });
+
+        if (vehicleMarkers[vehicle.id]) {
+          map.removeLayer(vehicleMarkers[vehicle.id]);
+        }
+
+        const marker = L.marker([vehicle.latitude, vehicle.longitude], { icon: icon });
+        marker.bindPopup(`🚛 Vehicle ID: ${vehicle.id}<br>Status: ${vehicle.status}`);
+        marker.addTo(map);
+        vehicleMarkers[vehicle.id] = marker;
+      }
+
+      
+      (async () => {
+        try {
+          const [binRes, vehicleRes] = await Promise.all([
+            fetch(binUrl),
+            fetch(vehicleUrl)
+          ]);
+
+          const bins = await binRes.json();
+          const vehicles = await vehicleRes.json();
+
+
+          bins.forEach(updateBinMarker);
+          vehicles.forEach(updateVehicleMarker);
+        } catch (error) {
+          console.error('Fetch error:', error);
+        }
+      })();
+
+      // 🔁 WebSocket Realtime Update
+      const socket = new WebSocket("ws://127.0.0.1:8000/ws/monitoring/");
+      let accessToken =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ1NTgyNzcxLCJpYXQiOjE3NDU1ODI0NzEsImp0aSI6IjBkY2MyNmE4OTRiNTQyOTdiZjI5NWQ0ZjMxY2U3MDZmIiwidXNlcl9pZCI6Nn0.x7jxys3U4O_jptTaYJnkC72MkzUgotKQXY2Q3MLidSg";
+      socket.onopen = () => {
+        console.log("WebSocket connected.");
+        socket.send(JSON.stringify({
+            "type": "authenticate",
+            "token": accessToken
+        }));
+      };
+
+      socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        const message = data.message;
+        console.log("Received:", message);
+
+        if (message.bin_id !== undefined) {
+          updateBinMarker(message);
+        } else if (message.vehicle_id !== undefined) {
+          updateVehicleMarker(message);
+        }
+      };
+
+      socket.onerror = (err) => {
+        console.error("WebSocket error:", err);
+      };
+
+      socket.onclose = () => {
+        console.warn("WebSocket closed.");
+      };
+    });
+  </script>
+</body>
+
+</html>

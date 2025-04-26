@@ -28,6 +28,7 @@ class Vehicle(models.Model):
                 "type": "send_vehicle_location",
                 "message": {
                     "vehicle_id": self.id,
+                    "id": self.id,
                     "latitude": self.latitude,
                     "longitude": self.longitude,
                     "status": self.status

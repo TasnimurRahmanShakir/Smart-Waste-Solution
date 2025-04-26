@@ -27,7 +27,6 @@ class UpdateBinDetails(APIView):
             binObj = Bin.objects.get(pk=pk)
         except Bin.DoesNotExist:
             return Response(status=404)
-        
         serializer = BinSerializer(binObj, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()

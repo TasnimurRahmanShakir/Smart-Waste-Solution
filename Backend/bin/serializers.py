@@ -6,7 +6,7 @@ from math import radians, sin, cos, sqrt, atan2
 class BinSerializer(ModelSerializer):
     class Meta:
         model = Bin
-        fields = ['id', 'bin_type', 'area', 'capacity', 'latitude', 'longitude', 'last_collected']
+        fields = '__all__'
         
     def create(self, validated_data):
         latitude = validated_data.get('latitude')
@@ -31,6 +31,7 @@ class BinSerializer(ModelSerializer):
     def update(self, instance, validated_data):
         instance.bin_type = validated_data.get('bin_type', instance.bin_type)
         instance.area = validated_data.get('area', instance.area)
+        instance.color = validated_data.get('color', instance.color)
         instance.capacity = validated_data.get('capacity', instance.capacity)
         instance.latitude = validated_data.get('latitude', instance.latitude)
         instance.longitude = validated_data.get('longitude', instance.longitude)

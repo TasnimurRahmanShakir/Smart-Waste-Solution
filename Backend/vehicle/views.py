@@ -20,11 +20,10 @@ class VehicleListCreateView(APIView):
     
 class VehicleDetailView(APIView):
     # permission_classes = [IsAuthenticated]
-    def get(self,request, pk):
+    def get(self, request):
         try:
-            vehicle = Vehicle.objects.get(id=pk)
-            serializer = VehicleSerializer(vehicle)
-            
+            vehicle = Vehicle.objects.all()
+            serializer = VehicleSerializer(vehicle, many=True)
             return Response(serializer.data, status=200)
             
         except Vehicle.DoesNotExist:

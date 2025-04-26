@@ -19,6 +19,9 @@ class Bin(models.Model):
     longitude = models.FloatField(null=True, blank=True)
     last_collected = models.DateTimeField(null=True, blank=True)
     
+    
+
+    
     def save(self, *args, **kwargs):
         super().save( *args, **kwargs)
         print("Bin color sent to monitoring group:", self.id, self.color, self.last_collected)
@@ -30,8 +33,10 @@ class Bin(models.Model):
 
                 "message": {
                     "bin_id": self.id,
+                    "id": self.id,
                     "color": self.color,
-                    "last_collected": self.last_collected
+                    "latitude": self.latitude,
+                    "longitude": self.longitude,
                 }
             }
         )

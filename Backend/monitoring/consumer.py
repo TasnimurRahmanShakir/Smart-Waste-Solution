@@ -2,8 +2,12 @@ import json
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 
 
+import json
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
+
 class MonitoringConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
+        self.user = None
         await self.accept()
         await self.send_json({'message': 'Connected to monitoring channel'})
 
@@ -14,14 +18,12 @@ class MonitoringConsumer(AsyncJsonWebsocketConsumer):
                 try:
                     self.user = token
                     
-                    
                     group_name = 'monitoring_group'
                     await self.channel_layer.group_add(
                         group_name,
                         self.channel_name
                     )
                     await self.send_json({'message': 'Authenticated!'})
-                    
                 except Exception as e:
                     print("Auth error:", str(e))
                     await self.close()
@@ -30,7 +32,6 @@ class MonitoringConsumer(AsyncJsonWebsocketConsumer):
         else:
             if not self.user:
                 await self.close()
-        await self.accept()
 
     async def send_vehicle_location(self, event):
         message = event['message']
@@ -38,6 +39,7 @@ class MonitoringConsumer(AsyncJsonWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'message': message
         }))
+
     async def send_bin_color(self, event):
         print("Sending bin color:", event['message'])
         message = event['message']
