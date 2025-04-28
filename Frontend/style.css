@@ -1,0 +1,384 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  background: #333333;
+  color: #fff;
+}
+
+.fixedHead {
+  padding-top: 23px;
+  padding-bottom: 100px;
+}
+
+.logoArea {
+  float: left;
+}
+
+.logoArea img {
+  height: 80px;
+  margin-right: 80px;
+}
+
+.options {
+  float: right;
+  margin-top: 23px;
+}
+
+.options a {
+  text-decoration: none;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.options a:hover {
+  background-color: #ad3333;
+  transition-duration: 0.3s;
+}
+
+section {
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.bannerArea {
+  margin-top: -30px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+}
+.bannerArea hr {
+  border: none;
+  border-bottom: 3px solid gray;
+  margin-bottom: 10px;
+}
+
+.bannerArea:hover {
+  transition-duration: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.bannerArea::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.bannerArea .left {
+  float: left;
+  width: 50%;
+}
+
+.bannerArea .right {
+  float: right;
+  width: 50%;
+}
+
+.bannerArea .right img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.bannerArea h1 {
+  color: #990018;
+  font-family: "Lobster", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 50px;
+  text-align: center;
+}
+
+.bannerArea h2 {
+  color: black;
+  font-family: "Lobster", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  text-align: center;
+}
+
+#bannerArea2 {
+  margin-top: 20px;
+}
+
+#bannerArea2 h1 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 21px;
+}
+
+.bannerArea .left img {
+  width: 98%;
+  border-radius: 10px;
+  height: 305px;
+}
+
+.rightImage {
+  margin-top: 30px;
+  width: 98%;
+}
+
+.bannerArea .right p {
+  text-align: justify;
+}
+
+.bannerArea3 {
+  background-color: white;
+  margin-top: 20px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.bannerArea3:hover {
+  transition-duration: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.card1, .card2, .card3{
+  width: 98%;
+  border-radius: 5px;
+}
+.bannerArea3 h3{
+  padding-left: 20px;
+}
+.bannerArea3 ul{
+  padding-left: 40px;
+  padding-right: 10px;
+}
+.card1:hover{
+  transition-duration: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.card2:hover{
+  transition-duration: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.card3:hover{
+  transition-duration: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.card1 img{
+  width: 100%;
+  height: 200px;
+}
+
+.card2 img{
+  width: 100%;
+  height: 200px;
+}
+
+.card3 img{
+  width: 100%;
+  height: 200px;
+}
+
+.card1{
+  grid-area: one;
+}
+
+.card2{
+  grid-area: two;
+}
+
+.card3{
+  grid-area: three;
+}
+.bannerHeader{
+  grid-area: bh;
+}
+.bannerArea3{
+  display: grid;
+  grid-template-areas: 
+    'bh bh bh'
+    'one two three'
+  ;
+}
+.bannerArea3 h1{
+  color: #990018;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.mm, .gg, .dd{
+  text-align: center;
+  padding: 5px 0px;
+}
+
+.question{
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.question:hover{
+  transition-duration: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.qHeader{
+  grid-area: qh;
+}
+.qCard1{
+  grid-area: q1;
+}
+.qCard2{
+  grid-area: q2;
+}
+.qCard3{
+  grid-area: q3;
+}
+
+.question{
+  padding: 20px;
+  display: grid;
+  grid-template-areas: 
+    'qh qh qh'
+    'q1 q2 q3'
+  ;
+}
+
+.question h1{
+  color: #990018;
+  margin-bottom: 20px;
+}
+
+.qCard1, .qCard2, .qCard3{
+  border: 2px solid #990018;
+  padding: 20px;
+  width: 98%;
+  border-radius: 10px;
+}
+.qCard1:hover{
+  transition-duration: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.qCard2:hover{
+  transition-duration: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.qCard3:hover{
+  transition-duration: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.qCard1 ul{
+  margin-left: 20px;
+}
+
+.qCard2 ul{
+  margin-left: 20px;
+}
+
+.qCard3 ul{
+  margin-left: 20px;
+}
+.cHeader h1{
+  color: #990018;
+  margin-bottom: 20px;
+}
+.contactArea{
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 20px;
+  padding-bottom: 35px;
+}
+.contactArea:hover{
+  transition-duration: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.cantactLeft input{
+  border-radius: 5px;
+  padding: 5px;
+  width: 300px;
+}
+.cantactLeft input[type="submit"]{
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  border: 2px solid green;
+}
+.cantactLeft input[type="submit"]:hover{
+  background-color: green;
+  color: white;
+  transition-duration: 0.3s;
+}
+.cantactLeft textarea{
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  width: 300px;
+}
+.cantactLeft label{
+  font-weight: bold;
+  display: block;
+}
+.cHeader{
+  grid-area: cHead;
+}
+.cantactLeft{
+  grid-area: cLeft;
+  width: 100%;
+}
+.contachRight{
+  grid-area: cRight;
+  width: 100%;
+}
+.contactArea{
+  display: grid;
+  grid-template-areas: 
+  'cHead cHead'
+  'cLeft cRight'
+  ;
+}
+.contachRight h3{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.loc{
+  padding-top: 20px;
+}
+.contachRight p{
+  padding: 3px;
+}
+footer {
+  background: black;
+  color: #fff;
+  text-align: center;
+  height: 75px;
+}
+
+footer p {
+  float: left;
+}
+
+footer a {
+  color: white;
+  padding: 10px;
+}
+
+footer a:hover {
+  color: aqua;
+  transition-duration: 0.3s;
+}
+
+.foot {
+  padding: 25px;
+}
+
+.rightSocial {
+  float: right;
+}
