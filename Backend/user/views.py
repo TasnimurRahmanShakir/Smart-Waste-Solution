@@ -3,9 +3,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializer import registerSerializer, loginSerializer, UserSerializer
 from django.contrib.auth import authenticate
+from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 # Create your views here.
 
+class ProfileAPI(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response(UserSerializer(user).data)
 
 class RegisterAPI(APIView):
     def post(self, request, *args, **kwargs):
