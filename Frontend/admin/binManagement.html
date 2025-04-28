@@ -51,6 +51,82 @@
       </ul>
     </div>
 
+    <section class="bin-data">
+      <h2>All Bins</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Bin Type</th>
+            <th>Area</th>
+            <th>Capacity</th>
+            <th>Coordinate</th>
+            <th>Last Collected</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Example rows -->
+          <tr>
+            <td>General</td>
+            <td>Mirpur</td>
+            <td>120</td>
+            <td>Latitude and longitude</td>
+            <td>25/03/2025</td>
+          </tr>
+          <!-- More rows will go here -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Add New Bin Button -->
+    <section class="add-bin">
+      <button id="addBinBtn">Add New Bin</button>
+    </section>
+
+    <!-- Bin Management Section (hidden by default) -->
+    <section
+      class="bin-management"
+      id="binManagementSection"
+      style="display: none"
+    >
+      <h2>Bin Management</h2>
+      <form>
+        <div class="form-group">
+          <label for="bin-status">Bin Type:</label>
+          <select id="bin-status" name="bin-status" required>
+            <option value="">--Select One--</option>
+            <option value="active">General</option>
+            <option value="inactive">Recycleable</option>
+            <option value="full">Organic</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="bin-id">CapacityI(in kg)</label>
+          <input type="number" id="bin-id" name="bin-id" required />
+        </div>
+
+        <div class="form-group">
+          <label for="bin-location">Latitude:</label>
+          <input type="text" id="bin-location" name="bin-location" required />
+        </div>
+
+        <div class="form-group">
+          <label for="bin-location">Longitude:</label>
+          <input type="text" id="bin-location" name="bin-location" required />
+        </div>
+
+        <button type="submit" class="submit-btn">Add Bin</button>
+      </form>
+    </section>
+    <script>
+      // Show the bin management form when button is clicked
+      document
+        .getElementById("addBinBtn")
+        .addEventListener("click", function () {
+          const binSection = document.getElementById("binManagementSection");
+          binSection.style.display =
+            binSection.style.display === "none" ? "block" : "none";
+        });
+    </script>
 
     <footer>
       <section class="foot">
