@@ -123,3 +123,19 @@ body, html {
     border-radius: 50%;
     background-color: white;
 }
+
+.form-label {
+  font-size: 18px;
+  margin-bottom: 10px;
+  display: block;
+  font-weight: bold;
+}
+
+.form-input {
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
