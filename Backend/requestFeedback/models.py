@@ -18,6 +18,8 @@ class RequestFeedback(models.Model):
         ('feedback', 'Feedback'),
         ('collection_request', 'Collection Request'),
         ('bin', 'Bin'),
+        ('complaint', 'Complaint'),
+        ('suggestion', 'Suggestion'),
         ('other', 'Other')
     ], default='feedback')
 
