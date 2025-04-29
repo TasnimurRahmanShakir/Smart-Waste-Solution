@@ -1,10 +1,13 @@
+import traceback
 from django.shortcuts import render
+import os
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializer import registerSerializer, loginSerializer, UserSerializer
+from .serializer import CustomUserSerializer, LoginSerializer, UserSerializer
 from django.contrib.auth import authenticate
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
+from .models import CustomUser
 # Create your views here.
 
 class ProfileAPI(APIView):
@@ -13,24 +16,13 @@ class ProfileAPI(APIView):
     def get(self, request):
         user = request.user
         return Response(UserSerializer(user).data)
-
-class RegisterAPI(APIView):
-    def post(self, request, *args, **kwargs):
-        serializer = registerSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            user.set_password(request.data['password'])
-            user.save()
-            return Response({f"message": "User registered successfully: \n{request.data}"}, status=201)
-        return Response(serializer.errors, status=400)
-    
 class LoginAPI(APIView):
     def post(self, request, *args, **kwargs):
         
             try:
                 data = request.data
                 print(data)
-                serializer_class = loginSerializer(data=data)
+                serializer_class = LoginSerializer(data=data)
                 if serializer_class.is_valid():
                     email = serializer_class.validated_data['email']
                     password = serializer_class.validated_data['password']
@@ -58,5 +50,27 @@ class LoginAPI(APIView):
                         status=400
                     )
             except Exception as e:
-                return Response(f"Error: {str(e)}", status=500)
-            
+                print("Backend error:\n", traceback.format_exc())  # Optional: logs full trace
+                return Response({'error': str(e)}, status=500)
+
+class RegisterAPI(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = CustomUserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response({
+                'user': UserSerializer(user).data,
+                'message': 'User created successfully'
+            }, status=201)
+        return Response(serializer.errors, status=400)
+    
+class DeleteUserAPI(APIView):
+    def delete(self, request, user_id):
+        try:
+            user = CustomUser.objects.get(id=user_id)
+            if user.profile_image and os.path.isfile(user.profile_image.path):
+                os.remove(user.profile_image.path)
+            user.delete()
+            return Response({'message': 'User deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+        except CustomUser.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)

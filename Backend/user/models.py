@@ -36,7 +36,7 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, unique=True)
     address = models.CharField(max_length=255)
     user_type = models.CharField(max_length=10, choices=[('admin', 'Admin'), ('citizen', 'Citizen'), ('collector', 'Collector')], default='citizen')
-    profile_image = models.ImageField(upload_to='')
+    profile_image = models.ImageField(upload_to='', null=True, blank=True)
     area = models.ForeignKey('area.AreaModel', on_delete=models.SET_NULL, null=True, blank=True)
     
     USERNAME_FIELD = 'email'

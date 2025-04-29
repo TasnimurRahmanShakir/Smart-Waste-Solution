@@ -1,74 +1,158 @@
-async function refreshAccessToken() {
-    const refreshToken = localStorage.getItem("refresh_token");
-    if (!refreshToken) {
-        window.location.href = "../login.html";
+import { BASE_URL } from "./config.js";
+import { checkUser } from "./auth.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+    initializePasswordValidation();
+    registerUser();
+});
+
+async function verification() {
+    let accessToken = localStorage.getItem('access_token');
+
+    if (!accessToken) {
+        document.getElementById('userTypeSection').style.display = 'none';
         return;
     }
 
-    console.log("Refreshing access token...");
-    console.log("Refresh token:", refreshToken);
-    try {
-        const response = await fetch(`${BASE_URL}token/refresh/`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ refresh: refreshToken }),
-        });
+    const userData = await checkUser();
+    if (!userData) {
+        console.log("User data not found, Please login/register a new account.");
+        document.getElementById('userTypeSection').style.display = 'none';
+        return;
+    }
 
-        if (!response.ok) {
-            throw new Error("Refresh token expired");
-        }
+    const userType = userData.user_type;
+    console.log("User type:", userType);
+    if (userType === 'admin') {
+        document.getElementById('userTypeSection').style.display = 'block';
 
-        const data = await response.json();
-        localStorage.setItem("access_token", data.access);
-        return data.access;
-    } catch (error) {
-        console.error("Refresh token error:", error);
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
-        localStorage.removeItem("user_type");
-        window.location.href = "/login.html"; // Redirect to login
+    } else if (userType === 'collector') {
+        //go to collector dashboard
+    } else if (userType === 'citizen') {
+        //go to citizen dashboard
+        console.log("Logout first to register a new account.");
+        document.getElementById('userTypeSection').style.display = 'none';
+    } else {
+        console.log("Invalid user type:", userType);
+        document.getElementById('userTypeSection').style.display = 'none';
+    }
+
+
+
+
+
+}
+
+
+function initializePasswordValidation() {
+    const passwordInput = document.getElementById('password');
+    const confirmInput = document.getElementById('confirm_password');
+    const errors = {
+        length: document.getElementById('length-error'),
+        letter: document.getElementById('letter-error'),
+        digit: document.getElementById('digit-error'),
+        symbol: document.getElementById('symbol-error'),
+        match: document.getElementById('match-error')
+    };
+
+    passwordInput.addEventListener('input', validatePassword);
+    confirmInput.addEventListener('input', validatePasswordMatch);
+
+    function validatePassword() {
+        const password = passwordInput.value;
+        const hasMinLength = password.length >= 6;
+        const hasLetter = /[a-zA-Z]/.test(password);
+        const hasDigit = /\d/.test(password);
+        const hasSymbol = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+
+        // Update error messages
+        toggleError(errors.length, hasMinLength);
+        toggleError(errors.letter, hasLetter);
+        toggleError(errors.digit, hasDigit);
+        toggleError(errors.symbol, hasSymbol);
+
+        // Update input border
+        passwordInput.classList.toggle('valid', hasMinLength && hasLetter && hasDigit && hasSymbol);
+        passwordInput.classList.toggle('invalid', !(hasMinLength && hasLetter && hasDigit && hasSymbol));
+    }
+
+    function validatePasswordMatch() {
+        const match = passwordInput.value === confirmInput.value;
+        toggleError(errors.match, match);
+        confirmInput.classList.toggle('valid', match);
+        confirmInput.classList.toggle('invalid', !match);
+    }
+
+    function toggleError(element, isValid) {
+        element.style.display = isValid ? 'none' : 'block';
+        element.innerHTML = isValid ? `✓ ${element.innerText.slice(2)}` : element.innerHTML;
+        element.classList.toggle('valid', isValid);
     }
 }
 
-let accessToken = localStorage.getItem("access_token");
-const refreshToken = localStorage.getItem("refresh_token");
+async function registerUser() {
+    await verification();
 
-if (!accessToken && !refreshToken) {
-    // No user logged in
-    document.getElementById("userTypeSection").style.display = "none";
-    return;
-}
+    const registerForm = document.getElementById("register_form");
+    const userTypeSection = document.getElementById('userTypeSection');
 
-// Try fetching user info
-let response = await fetch(`${BASE_URL}user/profile/`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-});
+    registerForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
 
-if (response.status === 401) {
-    // Access token expired, try refreshing
-    accessToken = await refreshAccessToken();
-    if (!accessToken) return;
+        // Check password validity before submission
+        const passwordValid = validatePasswordStrength();
+        const passwordsMatch = document.getElementById('confirm_password').classList.contains('valid');
 
-    response = await fetch(`${BASE_URL}user/profile/`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
+        if (!passwordValid || !passwordsMatch) {
+            alert('Please fix password errors before submitting!');
+            return;
+        }
+
+        const registerData = new FormData(this);
+
+        if (userTypeSection.style.display !== 'none') {
+            const userType = document.querySelector('input[name="user_type"]:checked')?.value;
+            if (userType) registerData.append('user_type', userType);
+        }
+
+
+        try {
+            const response = await fetch(`${BASE_URL}user/register/`, {
+                method: 'POST',
+                headers: {
+                    'Accept': '*/*',
+                },
+                body: registerData,
+            });
+            let data;
+            try {
+                data = await response.json();
+            } catch (jsonError) {
+                console.error("JSON parsing error:", jsonError);
+                throw new Error("Invalid JSON in response");
+            }
+            if (!response.ok) {
+                alert(data.message || "Registration failed.");
+                return;
+            }
+            alert("Registration successful! Please log in.");
+            window.location.href = "login.html";
+
+        } catch (error) {
+            console.error('Registration error:', error);
+            alert(`Error: ${error.message}`);
+        }
     });
 }
 
-if (response.ok) {
-    const userData = await response.json();
-    const userType = userData.user_type; // Adjust field based on your backend
-
-    if (userType === "admin") {
-        // Admin logged in => show User Type selection
-        document.getElementById("userTypeSection").style.display = "block";
-    } else {
-        // Citizen or collector logged in => not allowed
-        alert("You are not allowed to register new users.");
-        window.location.href = "/some-dashboard.html"; // redirect to dashboard
-    }
-} else {
-    console.error("Failed to fetch user");
-    document.getElementById("userTypeSection").style.display = "none";
+function validatePasswordStrength() {
+    const password = document.getElementById('password').value;
+    return (
+        password.length >= 6 &&
+        /[a-zA-Z]/.test(password) &&
+        /\d/.test(password) &&
+        /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+    );
 }
 
-document.addEventListener("DOMContentLoaded", checkUser);
+

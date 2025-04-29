@@ -139,3 +139,25 @@ body, html {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+.password-rules {
+  margin: 10px 0;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 0.9em;
+  margin: 3px 0;
+  display: none;
+}
+
+.valid {
+  color: #28a745;
+}
+
+input.invalid {
+  border-color: #dc3545 !important;
+}
+
+input.valid {
+  border-color: #28a745 !important;
+}
