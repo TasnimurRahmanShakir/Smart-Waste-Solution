@@ -92,8 +92,7 @@ class ScheduleCreate(APIView):
             send_notification_to_user(collector.id, f"New {schedule.schedule_type} schedule created. Please check your tasks.")
 
 class ScheduleUpdate(APIView):
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     
     def patch(self, request, pk):
         try:
@@ -133,8 +132,8 @@ class ScheduleUpdate(APIView):
             return Response({"error": "Something went wrong.", "details": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class ScheduleAccept(APIView):
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+  
+    permission_classes = [IsAuthenticated]
 
     def patch(self, request, pk):
         try:

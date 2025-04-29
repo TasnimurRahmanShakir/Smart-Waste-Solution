@@ -21,6 +21,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/summary/', include('mixedData.urls')),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/user/', include('user.urls')),
     path('api/vehicle/', include('vehicle.urls')),
@@ -28,4 +29,5 @@ urlpatterns = [
     path('api/bin/', include('bin.urls')),
     path('api/area/', include('area.urls')),
     path('api/schedule/', include('schedule.urls')),
+    path('api/depot/', include('depot.urls')),
 ]

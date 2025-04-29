@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'area',
     'schedule',
     'monitoring',
+    'mixedData',
+    'depot',
 ]
 
 MIDDLEWARE = [

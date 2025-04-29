@@ -11,7 +11,8 @@ class Schedule(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('ongoing', 'Ongoing'),
-        ('completed', 'Completed')
+        ('completed', 'Completed'),
+        ('missed', 'Missed')
     ]
     request_feedback = models.OneToOneField(RequestFeedback, on_delete=models.CASCADE, null=True, blank=True)
     schedule_type = models.CharField(max_length=20, choices=SCHEDULE_TYPE_CHOICES)
@@ -21,3 +22,5 @@ class Schedule(models.Model):
     area = models.ForeignKey(AreaModel, on_delete=models.CASCADE, null=True, blank=True)
     requested_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True, related_name='requested_schedules')
     accepted_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='accepted_schedules')
+
+    
