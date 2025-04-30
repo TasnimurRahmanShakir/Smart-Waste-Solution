@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Smart Waste Solution</title>
+    <link rel="stylesheet" href="admin.css" />
+    <!-- Font Awesome Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Font Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
+    <link href="../CSS/binManagement.css" rel="stylesheet" />
+</head>
+
+<body>
+    <header>
+        <section class="fixedHead">
+            <div class="logoArea">
+                <a href="#"><img src="images/logo.png" alt="Logo" /></a>
+            </div>
+            <nav class="options">
+                <a href="#">HOME</a>
+                <a href="#">BLOGS</a>
+                <a href="#">ABOUT</a>
+                <a href="#">CONTACT</a>
+                <a href="login.html">PROFILE</a>
+            </nav>
+        </section>
+    </header>
+    <div class="menuArea">
+        <ul>
+            <li><a href="adminHome.html">Home</a></li>
+            <li><a href="">Blog Management</a></li>
+            <li><a href="userManagement.html">User Management</a></li>
+            <li><a href="binManagement.html">Bin Management</a></li>
+            <li><a href="#">Vehicle Management</a></li>
+            <li><a href="#">Schedule Management</a></li>
+            <li><a href="#">Area Management</a></li>
+            <li><a href="#">Monitoring</a></li>
+            <li><a href="#">Notifications</a></li>
+            <li><a href="#">Reports</a></li>
+        </ul>
+    </div>
+
+    <section class="bin-data">
+        <div class="section-header">
+            <h2 class="section-title">All Users</h2>
+            <div class="user-actions">
+              <input type="text" id="searchBox" placeholder="Search users..." />
+              <select id="userTypeFilter">
+                <option value="">User Types</option>
+                <option value="admin">Admin</option>
+                <option value="staff">Collector</option>
+                <option value="user">Citizen</option>
+              </select>
+            </div>
+          </div>
+          
+        <div id="messageBox" class="message-box" style="display: none"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Use Type</th>
+                </tr>
+            <tbody class="table_body">
+                <tr class="clickable-row">
+                    <td>Nayon</td>
+                    <td>nayon@gmail.com</td>
+                    <td>017462874</td>
+                    <td>Collector</td>
+                </tr>
+            </tbody>
+            <script>
+                const tableBody = document.querySelector(".table_body");
+
+                tableBody.addEventListener("click", function (e) {
+                    const clickedRow = e.target.closest(".clickable-row");
+
+                    if (!clickedRow) return;
+
+                    // Check if details row already exists
+                    const nextRow = clickedRow.nextElementSibling;
+                    if (nextRow && nextRow.classList.contains("action-row")) {
+                        nextRow.remove(); // Remove if already shown
+                    } else {
+                        // Remove any other action rows
+                        document.querySelectorAll(".action-row").forEach(row => row.remove());
+
+                        // Create new row
+                        const actionRow = document.createElement("tr");
+                        actionRow.className = "action-row";
+                        const td = document.createElement("td");
+                        td.colSpan = 4;
+                        td.innerHTML = `
+                  <div class="action-buttons">
+                    <button class="details-btn">Details</button>
+                    <button class="edit-btn">Edit</button>
+                    <button class="delete-btn">Delete</button>
+                  </div>
+                `;
+                        actionRow.appendChild(td);
+                        clickedRow.after(actionRow);
+                    }
+                });
+            </script>
+
+            </thead>
+            <tbody class="table_body">
+                <!-- Example rows -->
+
+                <!-- More rows will go here -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Add New Bin Button -->
+    <button id="addBinBtn"><i class="fa fa-plus"></i>Add New User</button>
+
+    <!-- Modal Popup for Bin Management -->
+    <div id="binModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Add New User</h2>
+            <div id="binFormMessage" style="margin-bottom: 10px; font-weight: bold"></div>
+            <form id="bin_form" action="#" method="POST">
+                <div class="form-group">
+                    <label for="bin-id">First Name</label>
+                    <input type="text" id="bin-id" name="capacity" required />
+                </div>
+                <div class="form-group">
+                    <label for="bin-id">Last Name</label>
+                    <input type="text" id="bin-id" name="capacity" required />
+                </div>
+                <div class="form-group">
+                    <label for="bin-id">Email</label>
+                    <input type="email" id="bin-id" name="capacity" required />
+                </div>
+                <div class="form-group">
+                    <label for="bin-id">Phone Number</label>
+                    <input type="text" id="bin-id" name="capacity" required />
+                </div>
+                <div class="form-group">
+                    <label for="bin-id">Address</label>
+                    <input type="text" id="bin-id" name="capacity" required />
+                </div>
+                <div class="form-group">
+                    <label for="bin-id">Profile Picture</label>
+                    <input type="file" id="bin-id" name="capacity" required />
+                </div>
+                <div class="form-group">
+                    <label for="bin-status">User Type :</label>
+                    <select id="bin-status" name="bin_type" required>
+                        <option value="">--Select One--</option>
+                        <option value="non_recyclable">Admin</option>
+                        <option value="recyclable">Collector</option>
+                        <option value="organic">Citizen</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Add User</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bin Management Section (hidden by default) -->
+
+    <script>
+        // Show modal when Add Bin button is clicked
+        document.getElementById("addBinBtn").addEventListener("click", function () {
+            document.getElementById("binModal").style.display = "block";
+        });
+
+        // Close modal when close button (×) is clicked
+        document.querySelector(".close-btn").addEventListener("click", function () {
+            document.getElementById("binModal").style.display = "none";
+        });
+
+        // Optional: Close modal when clicking outside the modal content
+        window.addEventListener("click", function (e) {
+            const modal = document.getElementById("binModal");
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+    </script>
+    <script type="module" src="../JS/binManagement.js"></script>
+
+
+    <!-- User Details/Edit Modal -->
+<div id="userModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close-user-btn">&times;</span>
+      <h2>Edit User Info</h2>
+      <form id="userForm">
+        <div class="form-group">
+          <label for="userName">Name</label>
+          <input type="text" id="userName" name="userName" required />
+        </div>
+        <div class="form-group">
+          <label for="userEmail">Email</label>
+          <input type="email" id="userEmail" name="userEmail" required />
+        </div>
+        <div class="form-group">
+          <label for="userPhone">Phone Number</label>
+          <input type="text" id="userPhone" name="userPhone" required />
+        </div>
+        <div class="form-group">
+          <label for="userType">Assign Vehicle</label>
+          <select id="userType" name="userType" required>
+            <option value="">--Select One--</option>
+            <option value="Admin">Toyota</option>
+            <option value="Collector">Tata</option>
+            <option value="Citizen">Volvo</option>
+          </select>
+        </div>
+        <button type="submit" class="submit-btn">Save Changes</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    // Separate Details and Edit button handlers
+
+// Handle "Edit" button
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("edit-btn")) {
+    const row = e.target.closest("tr").previousElementSibling;
+    const cells = row.querySelectorAll("td");
+
+    // Populate modal fields
+    document.getElementById("userName").value = cells[0].innerText;
+    document.getElementById("userEmail").value = cells[1].innerText;
+    document.getElementById("userPhone").value = cells[2].innerText;
+    document.getElementById("userType").value = cells[3].innerText;
+
+    // Show edit modal
+    document.getElementById("userModal").style.display = "block";
+  }
+});
+
+  
+    // Close modal on × click
+    document.querySelector(".close-user-btn").addEventListener("click", function () {
+      document.getElementById("userModal").style.display = "none";
+    });
+  
+    // Optional: close modal when clicking outside
+    window.addEventListener("click", function (e) {
+      const modal = document.getElementById("userModal");
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  
+    // Save changes (optional — you can connect to backend)
+    document.getElementById("userForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Changes saved (simulation)");
+      document.getElementById("userModal").style.display = "none";
+    });
+  </script>
+
+  <!-- User Details Modal -->
+<div id="userDetailsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-details-btn">&times;</span>
+      <h2>User Details</h2>
+      <div class="user-details">
+        <img id="detailProfilePic" src="images/mirpur.jpg" alt="Profile Picture" class="detail-profile-pic" />
+        <p><strong>Name:</strong> <span id="detailName"></span></p>
+        <p><strong>Email:</strong> <span id="detailEmail"></span></p>
+        <p><strong>Phone:</strong> <span id="detailPhone"></span></p>
+        <p><strong>Address:</strong> <span id="detailAddress"></span></p>
+        <p><strong>User Type:</strong> <span id="detailUserType"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sample data for demonstration - in real use, fetch or store dynamically
+    const usersData = {
+      "nayon@gmail.com": {
+        profilePic: "images/mirpur.jpg", // Replace with actual path
+        name: "Nayon",
+        email: "nayon@gmail.com",
+        phone: "017462874",
+        address: "Dhaka, Bangladesh",
+        userType: "Collector"
+      }
+    };
+  
+    // Details button functionality
+    document.addEventListener("click", function (e) {
+      if (e.target.classList.contains("details-btn")) {
+        const row = e.target.closest("tr").previousElementSibling;
+        const email = row.children[1].textContent;
+  
+        const user = usersData[email]; // Lookup from object
+  
+        if (user) {
+          document.getElementById("detailProfilePic").src = user.profilePic;
+          document.getElementById("detailName").textContent = user.name;
+          document.getElementById("detailEmail").textContent = user.email;
+          document.getElementById("detailPhone").textContent = user.phone;
+          document.getElementById("detailAddress").textContent = user.address;
+          document.getElementById("detailUserType").textContent = user.userType;
+  
+          document.getElementById("userDetailsModal").style.display = "block";
+        }
+      }
+    });
+  
+    // Close details modal
+    document.querySelector(".close-details-btn").addEventListener("click", function () {
+      document.getElementById("userDetailsModal").style.display = "none";
+    });
+  
+    // Optional: Close modal when clicking outside
+    window.addEventListener("click", function (e) {
+      const modal = document.getElementById("userDetailsModal");
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  </script>
+  
+    
+    <footer>
+        <section class="foot">
+            <p>&copy; 2025 Smart Waste Solution</p>
+            <div class="rightSocial">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
+                <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </section>
+    </footer>
+</body>
+
+</html>
