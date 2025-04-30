@@ -5,7 +5,7 @@ from asgiref.sync import async_to_sync
 # Create your models here.
 class Bin(models.Model):
     bin_type = models.CharField(max_length=100, choices=[
-        ('general', 'General Waste'),
+        ('non_recyclable', 'Non-Recyclable'),
         ('recyclable', 'Recyclable Waste'),
         ('organic', 'Organic Waste')
     ])
@@ -17,7 +17,7 @@ class Bin(models.Model):
     capacity = models.FloatField(null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
-    last_collected = models.DateTimeField(null=True, blank=True)
+    last_collected = models.DateTimeField(null=True, blank=True, default= None)
     
     
 

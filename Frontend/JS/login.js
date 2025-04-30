@@ -42,7 +42,15 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem('refresh_token', data.refresh);
 
             if (data.user.user_type === 'admin') {
-                console.log('Admin login successful!');
+                const redirectUrl = localStorage.getItem('redirectAfterLogin');
+                if (redirectUrl) {
+                    console.log(redirectUrl)
+                    localStorage.removeItem('redirectAfterLogin');
+                    window.location.href = redirectUrl;
+                } else {
+                    console.log(window.location.href)
+                    window.location.href = './admin/adminHome.html';
+                }
             }
             else if (data.user.user_type === 'citizen') {
                 console.log('Citizen login successful!');

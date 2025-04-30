@@ -11,19 +11,31 @@ class BinSerializer(ModelSerializer):
     def create(self, validated_data):
         latitude = validated_data.get('latitude')
         longitude = validated_data.get('longitude')
-
         if latitude and longitude:
             flag = False
             areas = AreaModel.objects.all()
             for area in areas:
+                
                 if area.latitude and area.longitude and area.radius:
                     distance = self.haversine(longitude, latitude, area.longitude, area.latitude)
+                    print(area.latitude, area.longitude, distance)
                     if distance <= area.radius:
+                        
                         validated_data['area'] = area
                         flag = True
                         break
             if not flag:
-                raise ValueError("Bin location is not within any area radius.")
+                raise ValueError("Bin location is not within any service area radius.")
+            
+            if Bin.objects.filter(latitude=latitude, longitude=longitude).exists():
+                raise ValueError("Duplicate bin location detected. The same latitude and longitude already exist.")
+            
+            bins = Bin.objects.all()
+            for bin in bins:
+                bin_distance = self.haversine(longitude, latitude, bin.longitude, bin.latitude)
+                if bin_distance <= 50 and bin.bin_type == validated_data.get('bin_type'):
+                    raise ValueError("Bin location is too close to an existing bin. There is already a bin within 50 meters.")
+
 
         return super().create(validated_data)
 
