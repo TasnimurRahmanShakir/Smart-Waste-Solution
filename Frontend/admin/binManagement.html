@@ -45,12 +45,25 @@
       <li><a href="#">Monitoring</a></li>
       <li><a href="#">Notifications</a></li>
       <li><a href="#">Reports</a></li>
-     
+
     </ul>
   </div>
 
   <section class="bin-data">
-    <h2>All Bins</h2>
+    <div class="section-header">
+      <h2 class="section-title">All Users</h2>
+      <div class="user-actions">
+        <input type="text" id="searchBox" placeholder="Search Bin Id, Type, Area" />
+        <label for="roleFilter">Filter by Role:</label>
+        <select id="roleFilter">
+          <option value="">Bin Types</option>
+          <option value="non_recyclable">Non Recyclable</option>
+          <option value="recyclable">Recyclable</option>
+          <option value="organic">Organic</option>
+        </select>
+
+      </div>
+    </div>
     <div id="messageBox" class="message-box" style="display:none;"></div>
     <table>
       <thead>
@@ -84,8 +97,8 @@
         <div class="form-group">
           <label for="bin-status">Bin Type:</label>
           <select id="bin-status" name="bin_type" required>
-            <option value="" >--Select One--</option>
-            <option value="non_recyclable" >Non Recyclable</option>
+            <option value="">--Select One--</option>
+            <option value="non_recyclable">Non Recyclable</option>
             <option value="recyclable">Recyclable</option>
             <option value="organic">Organic</option>
           </select>
@@ -111,7 +124,7 @@
     </div>
   </div>
 
- 
+
   <script type="module" src="../JS/binManagement.js"></script>
 
   <footer>

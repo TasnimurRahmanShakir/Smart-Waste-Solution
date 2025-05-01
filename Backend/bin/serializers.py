@@ -1,12 +1,19 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import Bin
 from area.models import AreaModel
+from area.serializers import AreaSerializer
 from math import radians, sin, cos, sqrt, atan2
 
-class BinSerializer(ModelSerializer):
+class BinSerializer(serializers.ModelSerializer):
+    area = serializers.PrimaryKeyRelatedField(queryset=AreaModel.objects.all(), required=False)
     class Meta:
         model = Bin
         fields = '__all__'
+        
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep['area'] = AreaSerializer(instance.area).data if instance.area else None
+        return rep
         
     def create(self, validated_data):
         latitude = validated_data.get('latitude')
