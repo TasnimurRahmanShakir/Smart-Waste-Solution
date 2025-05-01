@@ -1,6 +1,7 @@
 import { checkUser } from "../JS/auth.js";
 import { BASE_URL } from "./config.js";
 
+let allBins = []
 document.addEventListener("DOMContentLoaded",async function () {
     let userData = await checkUser();
 
@@ -10,8 +11,56 @@ document.addEventListener("DOMContentLoaded",async function () {
         window.location.href = '../login.html'
     }
     getBinData();
+
+    // Event listener for search and filter
+    const searchBox = document.getElementById("searchBox");
+    const roleFilter = document.getElementById("roleFilter");
+
+    searchBox.addEventListener("input", applySearchAndFilter);
+    roleFilter.addEventListener("change", applySearchAndFilter);
+
+    function applySearchAndFilter() {
+        const query = searchBox.value.toLowerCase();
+        const selectedRole = roleFilter.value.toLowerCase();
+
+        const filtered = allBins.filter(bin => {
+            const bin_type = `${bin.bin_type}`.toLowerCase();
+            const area = (bin.area.area_name || "").toLowerCase();
+            const id = String(bin.id || "").toLowerCase();
+
+
+            const matchesSearch = bin_type.includes(query) || area.includes(query) || id.includes(query);
+            const matchesRole = !selectedRole || bin_type === selectedRole;
+
+            return matchesSearch && matchesRole;
+        });
+
+        renderBinTable(filtered);
+    }
+
 });
 
+
+function renderBinTable(bins) {
+    const tbody = document.querySelector('.table_body');
+    tbody.innerHTML = '';
+    bins.forEach(item => {
+        const row = document.createElement('tr');
+        // row.classList.add('your-class-name')
+
+        row.innerHTML = `
+                <td>${item.bin_type}</td>
+                <td>${item.area.area_name}</td>
+                <td>${item.capacity}</td>
+                <td>${item.latitude}, ${item.longitude}</td>
+                <td>${new Date(item.last_collected).toLocaleDateString()}</td>
+                <td><button class="deleteBtn" value=${item.id}>Delete</button></td>
+            `;
+
+        tbody.appendChild(row);
+    });
+    
+}
 async function getBinData() {
     try {
         const response = await fetch(`${BASE_URL}bin/`, {
@@ -23,24 +72,10 @@ async function getBinData() {
         });
         const data = await response.json();
         console.log(data);
-        const tbody = document.querySelector('.table_body');
+        
         if (response.ok) {
-            tbody.innerHTML = '';
-            data.forEach(item => {
-                const row = document.createElement('tr');
-                // row.classList.add('your-class-name')
-
-                row.innerHTML = `
-                <td>${item.bin_type}</td>
-                <td>${item.area}</td>
-                <td>${item.capacity}</td>
-                <td>${item.latitude}, ${item.longitude}</td>
-                <td>${new Date(item.last_collected).toLocaleDateString()}</td>
-                <td><button class="deleteBtn" value=${item.id}>Delete</button></td>
-            `;
-
-                tbody.appendChild(row);
-            });
+            allBins = data
+            renderBinTable(data)
 
         } else {
             console.error("Error fetching bin data:", data.message);
