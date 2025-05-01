@@ -52,16 +52,19 @@
         <div class="section-header">
             <h2 class="section-title">All Users</h2>
             <div class="user-actions">
-              <input type="text" id="searchBox" placeholder="Search users..." />
-              <select id="userTypeFilter">
-                <option value="">User Types</option>
-                <option value="admin">Admin</option>
-                <option value="staff">Collector</option>
-                <option value="user">Citizen</option>
-              </select>
+                <input type="text" id="searchBox" placeholder="Search by name, email or phone" />
+                <label for="roleFilter">Filter by Role:</label>
+                <select id="roleFilter">
+                    <option value="">All Roles</option>
+                    <option value="admin">Admin</option>
+                    <option value="collector">Collector</option>
+                    <option value="helper">Helper</option>
+                    <option value="citizen">Citizen</option>
+                </select>
+
             </div>
-          </div>
-          
+        </div>
+
         <div id="messageBox" class="message-box" style="display: none"></div>
         <table>
             <thead>
@@ -72,46 +75,8 @@
                     <th>Use Type</th>
                 </tr>
             <tbody class="table_body">
-                <tr class="clickable-row">
-                    <td>Nayon</td>
-                    <td>nayon@gmail.com</td>
-                    <td>017462874</td>
-                    <td>Collector</td>
-                </tr>
+
             </tbody>
-            <script>
-                const tableBody = document.querySelector(".table_body");
-
-                tableBody.addEventListener("click", function (e) {
-                    const clickedRow = e.target.closest(".clickable-row");
-
-                    if (!clickedRow) return;
-
-                    // Check if details row already exists
-                    const nextRow = clickedRow.nextElementSibling;
-                    if (nextRow && nextRow.classList.contains("action-row")) {
-                        nextRow.remove(); // Remove if already shown
-                    } else {
-                        // Remove any other action rows
-                        document.querySelectorAll(".action-row").forEach(row => row.remove());
-
-                        // Create new row
-                        const actionRow = document.createElement("tr");
-                        actionRow.className = "action-row";
-                        const td = document.createElement("td");
-                        td.colSpan = 4;
-                        td.innerHTML = `
-                  <div class="action-buttons">
-                    <button class="details-btn">Details</button>
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
-                  </div>
-                `;
-                        actionRow.appendChild(td);
-                        clickedRow.after(actionRow);
-                    }
-                });
-            </script>
 
             </thead>
             <tbody class="table_body">
@@ -122,47 +87,50 @@
         </table>
     </section>
 
-    <!-- Add New Bin Button -->
-    <button id="addBinBtn"><i class="fa fa-plus"></i>Add New User</button>
+    <!-- Add New Collector/Helper Button -->
+    <button id="addBtn"><i class="fa fa-plus"></i>Add New User</button>
 
-    <!-- Modal Popup for Bin Management -->
-    <div id="binModal" class="modal">
+    <!-- Modal Popup for Collector/Helper registration -->
+    <div id="userModal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <h2>Add New User</h2>
-            <div id="binFormMessage" style="margin-bottom: 10px; font-weight: bold"></div>
-            <form id="bin_form" action="#" method="POST">
+            <h2>Add New Stuff</h2>
+            <div id="userFormMessage" style="margin-bottom: 10px; font-weight: bold"></div>
+            <form id="user_form" action="#" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="bin-id">First Name</label>
-                    <input type="text" id="bin-id" name="capacity" required />
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" name="first_name" required />
                 </div>
                 <div class="form-group">
-                    <label for="bin-id">Last Name</label>
-                    <input type="text" id="bin-id" name="capacity" required />
+                    <label for="last_name">Last Name</label>
+                    <input type="text" id="last_name" name="last_name" required />
                 </div>
                 <div class="form-group">
-                    <label for="bin-id">Email</label>
-                    <input type="email" id="bin-id" name="capacity" required />
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required />
                 </div>
                 <div class="form-group">
-                    <label for="bin-id">Phone Number</label>
-                    <input type="text" id="bin-id" name="capacity" required />
+                    <label for="phone_number">Phone Number</label>
+                    <input type="text" id="phone_number" name="phone_number" required />
                 </div>
                 <div class="form-group">
-                    <label for="bin-id">Address</label>
-                    <input type="text" id="bin-id" name="capacity" required />
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" required />
                 </div>
                 <div class="form-group">
-                    <label for="bin-id">Profile Picture</label>
-                    <input type="file" id="bin-id" name="capacity" required />
+                    <label for="profile_image">Profile Picture</label>
+                    <input type="file" id="profile_image" name="profile_image" required />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required />
                 </div>
                 <div class="form-group">
                     <label for="bin-status">User Type :</label>
-                    <select id="bin-status" name="bin_type" required>
+                    <select id="bin-status" name="user_type" required>
                         <option value="">--Select One--</option>
-                        <option value="non_recyclable">Admin</option>
-                        <option value="recyclable">Collector</option>
-                        <option value="organic">Citizen</option>
+                        <option value="helper">Helper</option>
+                        <option value="collector">Collector</option>
                     </select>
                 </div>
                 <button type="submit" class="submit-btn">Add User</button>
@@ -170,169 +138,83 @@
         </div>
     </div>
 
-    <!-- Bin Management Section (hidden by default) -->
 
-    <script>
-        // Show modal when Add Bin button is clicked
-        document.getElementById("addBinBtn").addEventListener("click", function () {
-            document.getElementById("binModal").style.display = "block";
-        });
+    <!-- Assign Vehicle Modal -->
+    <div id="userAssignVehicleModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-user-btn">&times;</span>
+            <h2>Assign a vehicle</h2>
+            <div id="VehiclemessageBox" class="message-box" style="display: none"></div>
+            <form id="userForm" method="PATCH">
 
-        // Close modal when close button (×) is clicked
-        document.querySelector(".close-btn").addEventListener("click", function () {
-            document.getElementById("binModal").style.display = "none";
-        });
-
-        // Optional: Close modal when clicking outside the modal content
-        window.addEventListener("click", function (e) {
-            const modal = document.getElementById("binModal");
-            if (e.target === modal) {
-                modal.style.display = "none";
-            }
-        });
-
-    </script>
-    <script type="module" src="../JS/binManagement.js"></script>
-
-
-    <!-- User Details/Edit Modal -->
-<div id="userModal" class="modal" style="display: none;">
-    <div class="modal-content">
-      <span class="close-user-btn">&times;</span>
-      <h2>Edit User Info</h2>
-      <form id="userForm">
-        <div class="form-group">
-          <label for="userName">Name</label>
-          <input type="text" id="userName" name="userName" required />
+                <div class="form-group">
+                    <label for="userEmail">Email</label>
+                    <input type="email" id="userEmail" name="email" required />
+                </div>
+                <div class="form-group">
+                    <label for="userPhone">Phone Number</label>
+                    <input type="text" id="userPhone" name="phone_number" required />
+                </div>
+                <div class="form-group">
+                    <label for="vehicle">Assign Vehicle</label>
+                    <select id="vehicle" name="vehicle_id" required>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Save Changes</button>
+            </form>
         </div>
-        <div class="form-group">
-          <label for="userEmail">Email</label>
-          <input type="email" id="userEmail" name="userEmail" required />
-        </div>
-        <div class="form-group">
-          <label for="userPhone">Phone Number</label>
-          <input type="text" id="userPhone" name="userPhone" required />
-        </div>
-        <div class="form-group">
-          <label for="userType">Assign Vehicle</label>
-          <select id="userType" name="userType" required>
-            <option value="">--Select One--</option>
-            <option value="Admin">Toyota</option>
-            <option value="Collector">Tata</option>
-            <option value="Citizen">Volvo</option>
-          </select>
-        </div>
-        <button type="submit" class="submit-btn">Save Changes</button>
-      </form>
     </div>
-  </div>
-  <script>
-    // Separate Details and Edit button handlers
 
-// Handle "Edit" button
-document.addEventListener("click", function (e) {
-  if (e.target.classList.contains("edit-btn")) {
-    const row = e.target.closest("tr").previousElementSibling;
-    const cells = row.querySelectorAll("td");
+    <!-- Assign Area Modal -->
+    <div id="userAssignAreaModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-user-btn areaClose">&times;</span>
+            <h2>Assign an area</h2>
+            <div id="AreaMessageBox" class="message-box" style="display: none"></div>
+            <form id="userAreaForm" method="PATCH">
 
-    // Populate modal fields
-    document.getElementById("userName").value = cells[0].innerText;
-    document.getElementById("userEmail").value = cells[1].innerText;
-    document.getElementById("userPhone").value = cells[2].innerText;
-    document.getElementById("userType").value = cells[3].innerText;
-
-    // Show edit modal
-    document.getElementById("userModal").style.display = "block";
-  }
-});
-
-  
-    // Close modal on × click
-    document.querySelector(".close-user-btn").addEventListener("click", function () {
-      document.getElementById("userModal").style.display = "none";
-    });
-  
-    // Optional: close modal when clicking outside
-    window.addEventListener("click", function (e) {
-      const modal = document.getElementById("userModal");
-      if (e.target === modal) {
-        modal.style.display = "none";
-      }
-    });
-  
-    // Save changes (optional — you can connect to backend)
-    document.getElementById("userForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      alert("Changes saved (simulation)");
-      document.getElementById("userModal").style.display = "none";
-    });
-  </script>
-
-  <!-- User Details Modal -->
-<div id="userDetailsModal" class="modal">
-    <div class="modal-content">
-      <span class="close-details-btn">&times;</span>
-      <h2>User Details</h2>
-      <div class="user-details">
-        <img id="detailProfilePic" src="images/mirpur.jpg" alt="Profile Picture" class="detail-profile-pic" />
-        <p><strong>Name:</strong> <span id="detailName"></span></p>
-        <p><strong>Email:</strong> <span id="detailEmail"></span></p>
-        <p><strong>Phone:</strong> <span id="detailPhone"></span></p>
-        <p><strong>Address:</strong> <span id="detailAddress"></span></p>
-        <p><strong>User Type:</strong> <span id="detailUserType"></span></p>
-      </div>
+                <div class="form-group">
+                    <label for="userforAreaEmail">Email</label>
+                    <input type="email" id="userforAreaEmail" name="email" required />
+                </div>
+                <div class="form-group">
+                    <label for="userforAreaPhone">Phone Number</label>
+                    <input type="text" id="userforAreaPhone" name="phone_number" required />
+                </div>
+                <div class="form-group">
+                    <label for="Area">Assign Area</label>
+                    <select id="Area" name="area" required>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Save Changes</button>
+            </form>
+        </div>
     </div>
-  </div>
 
-  <script>
-    // Sample data for demonstration - in real use, fetch or store dynamically
-    const usersData = {
-      "nayon@gmail.com": {
-        profilePic: "images/mirpur.jpg", // Replace with actual path
-        name: "Nayon",
-        email: "nayon@gmail.com",
-        phone: "017462874",
-        address: "Dhaka, Bangladesh",
-        userType: "Collector"
-      }
-    };
-  
-    // Details button functionality
-    document.addEventListener("click", function (e) {
-      if (e.target.classList.contains("details-btn")) {
-        const row = e.target.closest("tr").previousElementSibling;
-        const email = row.children[1].textContent;
-  
-        const user = usersData[email]; // Lookup from object
-  
-        if (user) {
-          document.getElementById("detailProfilePic").src = user.profilePic;
-          document.getElementById("detailName").textContent = user.name;
-          document.getElementById("detailEmail").textContent = user.email;
-          document.getElementById("detailPhone").textContent = user.phone;
-          document.getElementById("detailAddress").textContent = user.address;
-          document.getElementById("detailUserType").textContent = user.userType;
-  
-          document.getElementById("userDetailsModal").style.display = "block";
-        }
-      }
-    });
-  
-    // Close details modal
-    document.querySelector(".close-details-btn").addEventListener("click", function () {
-      document.getElementById("userDetailsModal").style.display = "none";
-    });
-  
-    // Optional: Close modal when clicking outside
-    window.addEventListener("click", function (e) {
-      const modal = document.getElementById("userDetailsModal");
-      if (e.target === modal) {
-        modal.style.display = "none";
-      }
-    });
-  </script>
-  
-    
+
+    <!-- User Details Modal -->
+    <div id="userDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-details-btn">&times;</span>
+            <h2>User Details</h2>
+            <div class="user-details">
+                <img id="detailProfilePic" src="" alt="Profile" class="detail-profile-pic" />
+                <p><strong>Name:</strong> <span id="detailName"></span></p>
+                <p><strong>Email:</strong> <span id="detailEmail"></span></p>
+                <p><strong>Phone:</strong> <span id="detailPhone"></span></p>
+                <p><strong>Address:</strong> <span id="detailAddress"></span></p>
+                <p><strong>User Type:</strong> <span id="detailUserType"></span></p>
+                <p><strong style="display: none;" class="onlyCollector">Assigned Vehicle:</strong> <span
+                        id="assignedVehicle"></span></p>
+                <p><strong style="display: none;" class="onlyCollector">Assigned Area:</strong> <span
+                        id="assignedArea"></span></p>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module" src="../JS/userManagement.js"></script>
+
     <footer>
         <section class="foot">
             <p>&copy; 2025 Smart Waste Solution</p>

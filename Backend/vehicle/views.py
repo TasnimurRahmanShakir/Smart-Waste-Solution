@@ -17,9 +17,8 @@ class VehicleListCreateView(APIView):
         return Response(serializer.errors, status=400)
         
     
-    
 class VehicleDetailView(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         try:
             vehicle = Vehicle.objects.all()
@@ -30,6 +29,7 @@ class VehicleDetailView(APIView):
             return Response({"error": "Vehicle not found"}, status=404)
         
 class VehicleAssignView(APIView):
+    permission_class = [IsAuthenticated]
     def patch(self, request, pk):
         print(request)
         try:

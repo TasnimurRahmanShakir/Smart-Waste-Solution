@@ -50,7 +50,7 @@ async function getBinData() {
     }
 }
 
-const addBinBtn = document.getElementById("addBinBtn");
+const addBinBtn = document.getElementById("addBtn");
 const modal = document.getElementById("binModal");
 const closeBtn = document.querySelector(".close-btn");
 const form = modal.querySelector("form");

@@ -72,7 +72,7 @@
   </section>
 
   <!-- Add New Bin Button -->
-  <button id="addBinBtn"><i class="fa fa-plus"></i> Add New Bin</button>
+  <button id="addBtn"><i class="fa fa-plus"></i> Add New Bin</button>
 
   <!-- Modal Popup for Bin Management -->
   <div id="binModal" class="modal">
@@ -111,20 +111,7 @@
     </div>
   </div>
 
-  <!-- Bin Management Section (hidden by default) -->
-  
-  <script>
-    // Show the bin management form when button is clicked
-    document
-      .getElementById("addBinBtn")
-      .addEventListener("click", function () {
-        const binSection = document.getElementById("binManagementSection");
-        binSection.style.display =
-          binSection.style.display === "none" ? "block" : "none";
-      });
-
-
-  </script>
+ 
   <script type="module" src="../JS/binManagement.js"></script>
 
   <footer>

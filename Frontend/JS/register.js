@@ -24,17 +24,16 @@ async function verification() {
     const userType = userData.user_type;
     console.log("User type:", userType);
     if (userType === 'admin') {
-        document.getElementById('userTypeSection').style.display = 'block';
+        alert(window.location.href)
+        window.location.href = 'admin/adminHome.html'
 
     } else if (userType === 'collector') {
         //go to collector dashboard
     } else if (userType === 'citizen') {
         //go to citizen dashboard
         console.log("Logout first to register a new account.");
-        document.getElementById('userTypeSection').style.display = 'none';
     } else {
         console.log("Invalid user type:", userType);
-        document.getElementById('userTypeSection').style.display = 'none';
     }
 
 
@@ -94,7 +93,6 @@ async function registerUser() {
     await verification();
 
     const registerForm = document.getElementById("register_form");
-    const userTypeSection = document.getElementById('userTypeSection');
 
     registerForm.addEventListener("submit", async function (event) {
         event.preventDefault();
@@ -109,12 +107,6 @@ async function registerUser() {
         }
 
         const registerData = new FormData(this);
-
-        if (userTypeSection.style.display !== 'none') {
-            const userType = document.querySelector('input[name="user_type"]:checked')?.value;
-            if (userType) registerData.append('user_type', userType);
-        }
-
 
         try {
             const response = await fetch(`${BASE_URL}user/register/`, {
@@ -135,7 +127,7 @@ async function registerUser() {
                 alert(data.message || "Registration failed.");
                 return;
             }
-            window.location.href = "../login.html";
+            window.location.href = "./login.html";
             alert("Registration successful! Please log in.");
 
         } catch (error) {

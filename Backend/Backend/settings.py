@@ -157,7 +157,13 @@ MEDIA_ROOT = BASE_DIR / 'images'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.CustomUser'
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
 # CORS_ALLOW_CREDENTIALS = True
 ASGI_APPLICATION = 'Backend.asgi.application'
 CHANNEL_LAYERS = {

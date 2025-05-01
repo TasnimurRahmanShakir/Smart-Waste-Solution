@@ -60,6 +60,7 @@ section {
   border-radius: 10px;
   padding: 20px;
 }
+
 .bannerArea hr {
   border: none;
   border-bottom: 3px solid gray;
@@ -148,212 +149,250 @@ section {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.card1, .card2, .card3{
+.card1,
+.card2,
+.card3 {
   width: 98%;
   border-radius: 5px;
 }
-.bannerArea3 h3{
+
+.bannerArea3 h3 {
   padding-left: 20px;
 }
-.bannerArea3 ul{
+
+.bannerArea3 ul {
   padding-left: 40px;
   padding-right: 10px;
 }
-.card1:hover{
+
+.card1:hover {
   transition-duration: 0.3s;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.card2:hover{
+
+.card2:hover {
   transition-duration: 0.3s;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.card3:hover{
+
+.card3:hover {
   transition-duration: 0.3s;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.card1 img{
+
+.card1 img {
   width: 100%;
   height: 200px;
 }
 
-.card2 img{
+.card2 img {
   width: 100%;
   height: 200px;
 }
 
-.card3 img{
+.card3 img {
   width: 100%;
   height: 200px;
 }
 
-.card1{
+.card1 {
   grid-area: one;
 }
 
-.card2{
+.card2 {
   grid-area: two;
 }
 
-.card3{
+.card3 {
   grid-area: three;
 }
-.bannerHeader{
+
+.bannerHeader {
   grid-area: bh;
 }
-.bannerArea3{
+
+.bannerArea3 {
   display: grid;
-  grid-template-areas: 
+  grid-template-areas:
     'bh bh bh'
     'one two three'
   ;
 }
-.bannerArea3 h1{
+
+.bannerArea3 h1 {
   color: #990018;
   text-align: center;
   margin-bottom: 20px;
 }
 
-.mm, .gg, .dd{
+.mm,
+.gg,
+.dd {
   text-align: center;
   padding: 5px 0px;
 }
 
-.question{
+.question {
   background-color: white;
   border-radius: 10px;
   margin-top: 20px;
 }
 
-.question:hover{
+.question:hover {
   transition-duration: 0.3s;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.qHeader{
+.qHeader {
   grid-area: qh;
 }
-.qCard1{
+
+.qCard1 {
   grid-area: q1;
 }
-.qCard2{
+
+.qCard2 {
   grid-area: q2;
 }
-.qCard3{
+
+.qCard3 {
   grid-area: q3;
 }
 
-.question{
+.question {
   padding: 20px;
   display: grid;
-  grid-template-areas: 
+  grid-template-areas:
     'qh qh qh'
     'q1 q2 q3'
   ;
 }
 
-.question h1{
+.question h1 {
   color: #990018;
   margin-bottom: 20px;
 }
 
-.qCard1, .qCard2, .qCard3{
+.qCard1,
+.qCard2,
+.qCard3 {
   border: 2px solid #990018;
   padding: 20px;
   width: 98%;
   border-radius: 10px;
 }
-.qCard1:hover{
+
+.qCard1:hover {
   transition-duration: 0.3s;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.qCard2:hover{
+
+.qCard2:hover {
   transition-duration: 0.3s;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.qCard3:hover{
+
+.qCard3:hover {
   transition-duration: 0.3s;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.qCard1 ul{
+
+.qCard1 ul {
   margin-left: 20px;
 }
 
-.qCard2 ul{
+.qCard2 ul {
   margin-left: 20px;
 }
 
-.qCard3 ul{
+.qCard3 ul {
   margin-left: 20px;
 }
-.cHeader h1{
+
+.cHeader h1 {
   color: #990018;
   margin-bottom: 20px;
 }
-.contactArea{
+
+.contactArea {
   background-color: white;
   border-radius: 10px;
   margin-top: 20px;
   padding: 20px;
   padding-bottom: 35px;
 }
-.contactArea:hover{
+
+.contactArea:hover {
   transition-duration: 0.3s;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.cantactLeft input{
+
+.cantactLeft input {
   border-radius: 5px;
   padding: 5px;
   width: 300px;
 }
-.cantactLeft input[type="submit"]{
+
+.cantactLeft input[type="submit"] {
   background-color: white;
   color: black;
   font-weight: bold;
   border: 2px solid green;
 }
-.cantactLeft input[type="submit"]:hover{
+
+.cantactLeft input[type="submit"]:hover {
   background-color: green;
   color: white;
   transition-duration: 0.3s;
 }
-.cantactLeft textarea{
+
+.cantactLeft textarea {
   border: 2px solid black;
   border-radius: 5px;
   padding: 5px;
   width: 300px;
 }
-.cantactLeft label{
+
+.cantactLeft label {
   font-weight: bold;
   display: block;
 }
-.cHeader{
+
+.cHeader {
   grid-area: cHead;
 }
-.cantactLeft{
+
+.cantactLeft {
   grid-area: cLeft;
   width: 100%;
 }
-.contachRight{
+
+.contachRight {
   grid-area: cRight;
   width: 100%;
 }
-.contactArea{
+
+.contactArea {
   display: grid;
-  grid-template-areas: 
-  'cHead cHead'
-  'cLeft cRight'
+  grid-template-areas:
+    'cHead cHead'
+    'cLeft cRight'
   ;
 }
-.contachRight h3{
+
+.contachRight h3 {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.loc{
+
+.loc {
   padding-top: 20px;
 }
-.contachRight p{
+
+.contachRight p {
   padding: 3px;
 }
+
 footer {
   background: black;
   color: #fff;

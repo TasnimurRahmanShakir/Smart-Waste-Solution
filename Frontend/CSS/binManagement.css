@@ -2,7 +2,7 @@
 #binModal {
     display: none;
 }
-#addBinBtn {
+#addBtn {
     position: fixed;
     bottom: 30px;
     right: 30px;
@@ -32,7 +32,7 @@
 .deleteBtn:hover {
     background-color: darkred;
 }
-#addBinBtn i {
+#addBtn i {
     font-size: 18px;
 }
 
@@ -93,3 +93,23 @@
     color: #333;
     cursor: pointer;
 }
+
+.action-buttons.animate {
+    display: flex;
+    gap: 10px;
+    animation: fadeInUp 0.3s ease;
+    padding: 10px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

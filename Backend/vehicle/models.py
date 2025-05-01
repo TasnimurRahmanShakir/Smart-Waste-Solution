@@ -17,7 +17,7 @@ class Vehicle(models.Model):
     )
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
-    assigned_to = models.OneToOneField('user.CustomUser', on_delete=models.SET_NULL, null=True, blank=True)
+    assigned_to = models.OneToOneField('user.CustomUser', on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_vehicle')
 
     def save(self, *args, **kwargs):
         super().save( *args, **kwargs)

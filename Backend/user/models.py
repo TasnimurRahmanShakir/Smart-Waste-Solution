@@ -35,7 +35,8 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15, unique=True)
     address = models.CharField(max_length=255)
-    user_type = models.CharField(max_length=10, choices=[('admin', 'Admin'), ('citizen', 'Citizen'), ('collector', 'Collector')], default='citizen')
+    user_type = models.CharField(max_length=10, choices=[('admin', 'Admin'), ('citizen', 'Citizen'), ('collector', 'Collector'),('helper','Helper')], default='citizen')
+    date_joined = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     profile_image = models.ImageField(upload_to='', null=True, blank=True)
     area = models.ForeignKey('area.AreaModel', on_delete=models.SET_NULL, null=True, blank=True)
     

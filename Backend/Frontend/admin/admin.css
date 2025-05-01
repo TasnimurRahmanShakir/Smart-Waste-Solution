@@ -1,0 +1,232 @@
+
+body {
+  margin: 0; 
+}
+
+.menuArea {
+  background-color: #303952;
+  padding: 20px;
+  width: 100vw; 
+  box-sizing: border-box;
+}
+
+.menuArea ul {
+  list-style: none;
+  display: flex;
+  justify-content: center; 
+  flex-wrap: wrap; 
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.menuArea ul li a {
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  padding: 10px 15px;
+  display: block;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.menuArea ul li a:hover {
+  background-color: #596275;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  background: #333333;
+  color: #fff;
+}
+
+.fixedHead {
+  padding-top: 23px;
+  padding-bottom: 100px;
+}
+
+.logoArea {
+  float: left;
+}
+
+.logoArea img {
+  height: 80px;
+  margin-right: 80px;
+}
+
+.options {
+  float: right;
+  margin-top: 23px;
+}
+
+.options a {
+  text-decoration: none;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.options a:hover {
+  background-color: #ad3333;
+  transition-duration: 0.3s;
+}
+
+section {
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+footer {
+  background: #333333;
+  color: #fff;
+  text-align: center;
+  height: 75px;
+}
+
+footer p {
+  float: left;
+}
+
+footer a {
+  color: white;
+  padding: 10px;
+}
+
+footer a:hover {
+  color: aqua;
+  transition-duration: 0.3s;
+}
+
+.foot {
+  padding: 25px;
+}
+
+.rightSocial {
+  float: right;
+}
+
+/* Bin mangement code started form here */
+
+.bin-management {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.bin-management h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.submit-btn {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+
+.bin-data {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-top: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+}
+
+.bin-data h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+.add-bin {
+  text-align: center;
+  margin: 30px 0;
+}
+
+#addBinBtn {
+  background-color: #3498db;
+  color: white;
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#addBinBtn:hover {
+  background-color: #2980b9;
+}
