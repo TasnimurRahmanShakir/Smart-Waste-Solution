@@ -8,8 +8,8 @@ body {
 .dropdown {
   display: none;
   position: absolute;
-      top: 63px;
-      right: 182px;
+      top: 9%;
+      right: 13%;
   background-color: #333333;
   z-index: 1000;
 }
