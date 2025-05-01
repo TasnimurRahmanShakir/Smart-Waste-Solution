@@ -23,13 +23,22 @@
       <div class="logoArea">
         <a href="#"><img src="images/logo.png" alt="Logo" /></a>
       </div>
+      <h2>ZeroWaste Dynamic</h2>
+      <p>Complete Waste Solutions, Zero compromised</p>
       <nav class="options">
         <a href="#">HOME</a>
         <a href="#">BLOGS</a>
         <a href="#">ABOUT</a>
         <a href="#">CONTACT</a>
-        <a href="login.html">PROFILE</a>
+        <div class="profile">
+          <img src="images/man2.jpg" alt="Profile Picture">
+          <div class="dropdown" id="profileDropdown">
+            <a href="#" id="logoutBtn">Logout</a>
+          </div>
+          
+        </div>
       </nav>
+      
     </section>
   </header>
   <div class="menuArea">
@@ -103,6 +112,23 @@
       </div>
     </section>
   </footer>
+
+  <script>
+    const profileImg = document.querySelector(".profile img");
+    const dropdown = document.getElementById("profileDropdown");
+  
+    profileImg.addEventListener("click", () => {
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    });
+  
+    // Optional: Click outside to close
+    window.addEventListener("click", function(e) {
+      if (!e.target.closest('.profile')) {
+        dropdown.style.display = "none";
+      }
+    });
+  </script>
+  
 </body>
 
 </html>
