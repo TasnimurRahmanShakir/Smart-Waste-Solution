@@ -432,6 +432,8 @@ addBinBtn.addEventListener("click", () => {
                     const firstError = data.error[firstKey][0];
                     messageBox.textContent = firstError;
                     messageBox.style.color = "red";
+                    get_user_data()
+
                 } else {
                     messageBox.textContent = "✅ Stuff Registered successfully!";
                     messageBox.style.color = "green";
