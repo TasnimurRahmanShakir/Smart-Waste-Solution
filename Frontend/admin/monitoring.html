@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Smart Waste Solution</title>
+    <link rel="stylesheet" href="admin.css" />
+    <!-- Font Awesome Link -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Font Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
+
+    <style>
+        #map {
+            height: 500px;
+            width: 800px;
+            border: 1px solid black;
+            margin: 20px auto;
+        }
+
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <section class="fixedHead">
+            <div class="logoArea">
+                <a href="#"><img src="images/logo.png" alt="Logo" /></a>
+            </div>
+            <h2>ZeroWaste Dynamic</h2>
+            <p>Complete Waste Solutions, Zero compromised</p>
+            <nav class="options">
+                <a href="#">HOME</a>
+                <a href="#">BLOGS</a>
+                <a href="#">ABOUT</a>
+                <a href="#">CONTACT</a>
+                <div class="profile">
+                    <img src="images/man2.jpg" alt="Profile">
+                    <div class="dropdown" id="profileDropdown">
+                        <a href="#" id="logoutBtn">Logout</a>
+                    </div>
+
+                </div>
+            </nav>
+
+        </section>
+    </header>
+    <div class="menuArea">
+        <ul>
+            <li><a href="adminHome.html">Home</a></li>
+            <li><a href="">Blog Management</a></li>
+            <li><a href="userManagement.html">User Management</a></li>
+            <li><a href="binManagement.html">Bin Management</a></li>
+            <li><a href="vehicleManagement.html">Vehicle Management</a></li>
+            <li><a href="#">Schedule Management</a></li>
+            <li><a href="areaManagement.html">Area Management</a></li>
+            <li><a href="./monitoring.html">Monitoring</a></li>
+            <li><a href="#">Notifications</a></li>
+            <li><a href="#">Reports</a></li>
+
+        </ul>
+    </div>
+
+    <div>
+        <h1>City Waste Monitoring Map</h1>
+        <label>
+            <input type="checkbox" id="showAreaCheckbox" />
+            Show Area
+        </label>
+        <div id="map"></div>
+    </div>
+
+    <script type="module" src="../JS/monitoring.js"></script>
+    <script>
+
+    </script>
+
+    <footer>
+        <section class="foot">
+            <p>&copy; 2025 Smart Waste Solution</p>
+            <div class="rightSocial">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
+                <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </section>
+    </footer>
+
+
+</body>
+
+</html>
