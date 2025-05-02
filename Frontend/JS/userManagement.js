@@ -2,7 +2,6 @@
 import { BASE_URL } from "./config.js";
 import { checkUser } from "./auth.js";
 import { get_vehicle } from "./vehicleManagement.js";
-import { get_area } from "./areaManagement.js"
 
 let allUsers = [];
 document.addEventListener('DOMContentLoaded', async () => {
@@ -116,6 +115,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 async function get_user_data() {
+    console.log("hello")
     try {
         const response = await fetch(`${BASE_URL}user/`, {
             method: 'GET',
@@ -126,7 +126,7 @@ async function get_user_data() {
         });
 
         const data = await response.json();
-        const tbody = document.querySelector('.table_body');
+        
 
         if (response.ok) {
             allUsers = data;
@@ -298,7 +298,7 @@ async function populateVehicleDropdown() {
         if (vehicle.assigned_to){
             const option = document.createElement("option");
             option.value = vehicle.id;
-            option.textContent = vehicle.vehicle_type;
+            option.textContent = vehicle.vehicle_type+" "+vehicle.license_no;
             dropdown.appendChild(option);
         }
         
@@ -465,3 +465,22 @@ window.addEventListener("click", (e) => {
 });
 
 
+async function get_area() {
+    try {
+        const response = await fetch(`${BASE_URL}area/`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            return data;
+        } else {
+            console.error("Error fetching areas:", data);
+        }
+    } catch (error) {
+        console.error("Unexpected error while fetching areas:", error);
+    }
+}
