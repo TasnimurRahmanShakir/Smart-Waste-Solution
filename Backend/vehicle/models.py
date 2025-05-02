@@ -4,7 +4,11 @@ from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 # Create your models here.
 class Vehicle(models.Model):
-    vehicle_type = models.CharField(max_length=100)
+    vehicle_type = models.CharField(max_length=100, choices=[
+        ('Truck', 'Truck'),
+        ('Mini-Truck','Mini Truck'),
+        ('Pickup', 'Pickup')
+    ])
     license_no = models.CharField(max_length=100, unique=True)
     capacity = models.FloatField()
     status = models.CharField(

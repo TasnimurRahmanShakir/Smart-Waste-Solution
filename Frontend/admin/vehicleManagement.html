@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Smart Waste Solution</title>
+    <link rel="stylesheet" href="admin.css" />
+    <!-- Font Awesome Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Font Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
+    <link href="../CSS/binManagement.css" rel="stylesheet" />
+</head>
+
+<body>
+    <header>
+        <section class="fixedHead">
+            <div class="logoArea">
+                <a href="#"><img src="images/logo.png" alt="Logo" /></a>
+            </div>
+            <nav class="options">
+                <a href="#">HOME</a>
+                <a href="#">BLOGS</a>
+                <a href="#">ABOUT</a>
+                <a href="#">CONTACT</a>
+                <a href="login.html">PROFILE</a>
+            </nav>
+        </section>
+    </header>
+    <div class="menuArea">
+        <ul>
+            <li><a href="adminHome.html">Home</a></li>
+            <li><a href="">Blog Management</a></li>
+            <li><a href="userManagement.html">User Management</a></li>
+            <li><a href="binManagement.html">Bin Management</a></li>
+            <li><a href="./vehicleManagement.html">Vehicle Management</a></li>
+            <li><a href="#">Schedule Management</a></li>
+            <li><a href="areaManagement.html">Area Management</a></li>
+            <li><a href="#">Monitoring</a></li>
+            <li><a href="#">Notifications</a></li>
+            <li><a href="#">Reports</a></li>
+        </ul>
+    </div>
+
+    <section class="vehicle-data">
+        <div class="section-header">
+            <h2 class="section-title">All Vehicles</h2>
+            <div class="vehicle-actions">
+                <input type="text" id="searchBox" placeholder="Search by Type, license, status, assigned to" />
+                <label for="roleFilter">Filter by:</label>
+                <select id="roleFilter">
+                    <option value="">All Type</option>
+                    <option value="Truck">Truck</option>
+                    <option value="Mini-Truck">Mini Truck</option>
+                    <option value="Pickup">Pickup</option>
+                </select>
+
+            </div>
+        </div>
+
+        <div id="messageBox" class="message-box" style="display: none"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>License No.</th>
+                    <th>Status</th>
+                    <th>Coordinate</th>
+                    <th>Assigned to</th>
+                </tr>
+            <tbody class="table_body">
+
+            </tbody>
+
+            </thead>
+            <tbody class="table_body">
+                <!-- Example rows -->
+
+                <!-- More rows will go here -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Add New Collector/Helper Button -->
+    <button id="addBtn"><i class="fa fa-plus"></i>Add New Vehicle</button>
+
+    <!-- Modal Popup for New Vehicle registration -->
+    <div id="vehicleModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Add New Vehicle</h2>
+            <div id="vehicleFormMessage" style="margin-bottom: 10px; font-weight: bold"></div>
+            <form id="vehicle_form" action="#" method="POST">
+                <div class="form-group">
+                    <label for="vehicle_type">Type</label>
+                    <select id="vehicle_type" name="vehicle_type">
+                        <option value="">--Select Vehicle Type--</option>
+                        <option value="Truck">Truck</option>
+                        <option value="Mini-Truck">Mini Truck</option>
+                        <option value="Pickup">Pickup</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="license">Capacity</label>
+                    <input type="text" id="license" name="license_no" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="capacity">Capacity</label>
+                    <input type="text" id="capacity" name="capacity" required />
+                </div>
+
+                <button type="submit" class="submit-btn">Add User</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Vehicle Status -->
+    <div id="vehicleEditModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-user-btn vehicleEditClose">&times;</span>
+            <h2>Assign an area</h2>
+            <div id="vehicleMessageBox" class="message-box" style="display: none"></div>
+            <form id="vehicleEditForm" method="PATCH">
+
+                <div class="form-group">
+                    <label for="vehicle_Type">Email</label>
+                    <input type="text" id="vehicle_Type" name="vehicle_type" disabled />
+                </div>
+                <div class="form-group">
+                    <label for="licenseNo">Phone Number</label>
+                    <input type="text" id="licenseNo" name="license_no" required />
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" required>
+                        <option value="available">Available</option>
+                        <option value="maintenance">Maintenance</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="../JS/vehicleManagement.js"></script>
+
+    <footer>
+        <section class="foot">
+            <p>&copy; 2025 Smart Waste Solution</p>
+            <div class="rightSocial">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
+                <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </section>
+    </footer>
+</body>
+
+</html>

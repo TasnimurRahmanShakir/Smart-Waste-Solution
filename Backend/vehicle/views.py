@@ -8,8 +8,9 @@ from .models import Vehicle
 # Create your views here.
 class VehicleListCreateView(APIView):
     
-    # permission_classes = [IsAuthenticated]
+    permission_class = [IsAuthenticated]
     def post(self, request):
+        print(request.data)
         serializer = VehicleSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -53,3 +54,29 @@ class VehicleLocationUpdateView(APIView):
             return Response(serializer.errors, status=400)
         except Vehicle.DoesNotExist:
             return Response({"error": "Vehicle not found"}, status=404)
+
+class VehicleUpdate(APIView):
+    def patch(self, request, pk):
+        try:
+            vehicle = Vehicle.objects.get(id=pk)
+            serializer = VehicleSerializer(vehicle, data=request.data, partial=True)
+            if serializer.is_valid():
+                data = serializer.save()
+                return Response({'message': 'Vehicle updated successfully', 'data': VehicleSerializer(data).data}, status=200)
+            else:
+                return Response({'error' : serializer.errors}, status=400)
+        except Vehicle.DoesNotExist:
+            return Response({'error': 'vehicle not found'}, status=404)
+        
+class DeleteVehicle(APIView):
+    def delete(self, request, pk):
+        try:
+            delete_vehicle = Vehicle.objects.filter(id=pk)
+            
+            if not delete_vehicle.exists():
+                return Response({'error': 'Bin not found'}, status=404)
+
+            delete_vehicle.delete()
+            return Response(status=204)
+        except Exception as e:
+            return Response({'error': str(e)}, status=400)
