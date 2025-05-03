@@ -131,7 +131,7 @@ addBinBtn.addEventListener("click", () => {
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Add Area";
             });
-;
+
     });
 
 });

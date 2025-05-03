@@ -91,9 +91,10 @@
 
     <!-- Add New Collector/Helper Button -->
     <button id="addBtn"><i class="fa fa-plus"></i>Add New Schedule</button>
-
+    
     <!-- Modal Popup for New Vehicle registration -->
     <div id="scheduleModal" class="modal">
+        
         <div class="modal-content">
             <span class="close-btn" id="closeScheduleModal">&times;</span>
             <h2>Create New Schedule</h2>
@@ -103,7 +104,7 @@
                 <button id="dailyBtn" class="toggle-btn active">Daily</button>
                 <button id="emergencyBtn" class="toggle-btn">Emergency</button>
             </div>
-
+            <div id="scheduleMessageBox" class="message-box" style="display: block"></div>
             <!-- Daily Schedule Form -->
             <div id="dailyForm" class="schedule-form">
                 <table class="area-table">
@@ -113,19 +114,9 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Area 1</td>
-                            <td><button class="submit-btn">Create</button></td>
-                        </tr>
-                        <tr>
-                            <td>Area 2</td>
-                            <td><button class="submit-btn">Create</button></td>
-                        </tr>
-                        <tr>
-                            <td>Area 3</td>
-                            <td><button class="submit-btn">Create</button></td>
-                        </tr>
+                    <tbody id="dailySchedule">
+                        
+                        
 
                     </tbody>
                 </table>

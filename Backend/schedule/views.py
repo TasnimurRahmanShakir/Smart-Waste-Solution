@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+
+from area.models import AreaModel
 from .serializers import ScheduleSerializer
 from .models import Schedule
 from bin.models import Bin
@@ -65,9 +67,15 @@ class ScheduleCreate(APIView):
                     pass
 
             self._send_notifications(schedule, data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response({
+                "message": "Schedule created successfully.",
+                "schedule": serializer.data
+            }, status=status.HTTP_201_CREATED)
+
+
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
     def _area_has_active_schedule(self, area_id):
         return Schedule.objects.filter(area_id=area_id, status__in=['pending', 'ongoing']).exists()
@@ -172,3 +180,25 @@ class ScheduleDelete(APIView):
             return Response( status=204)
         except Exception as e:
             return Response({'error': str(e)}, status=400)
+        
+class UnscheduledArea(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        areas = AreaModel.objects.all()
+
+        area_status = []
+        for area in areas:
+            has_active_schedule = Schedule.objects.filter(
+                area=area,
+                schedule_type='daily',
+                status__in=['pending', 'ongoing']
+            ).exists()
+            if not has_active_schedule:
+                area_status.append({
+                    'id': area.id,
+                    'name': area.area_name
+                })
+                
+        return Response(area_status, status=201)
+
+    

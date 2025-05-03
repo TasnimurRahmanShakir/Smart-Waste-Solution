@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Show Modal
     scheduleBtn.addEventListener('click', () => {
         scheduleModal.style.display = 'block';
+        if (dailyForm.style.display !== 'none') {
+            dailySchedule();
+        }
     });
 
     // Close Modal
@@ -39,6 +42,9 @@ document.addEventListener('DOMContentLoaded', async function () {
         emergencyForm.style.display = 'none';
         dailyBtn.classList.add('active');
         emergencyBtn.classList.remove('active');
+
+        dailySchedule()
+
     });
 
     emergencyBtn.addEventListener('click', () => {
@@ -62,26 +68,26 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 async function get_schedule() {
     try {
-            const response = await fetch(`${BASE_URL}schedule/`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authorization': `Bearer ${localStorage.getItem('access_token')}`
-                }
-            });
-    
-            const data = await response.json();
-            
-            console.log(data)
-            if (response.ok) {
-                allSchedule = data;
-                renderScheduleTable(data)
-            } else {
-                console.error("Error fetching user data:", data.message);
+        const response = await fetch(`${BASE_URL}schedule/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${localStorage.getItem('access_token')}`
             }
-        } catch (error) {
-            console.error("Unexpected error:", error);
+        });
+
+        const data = await response.json();
+
+        console.log(data)
+        if (response.ok) {
+            allSchedule = data;
+            renderScheduleTable(data)
+        } else {
+            console.error("Error fetching user data:", data.message);
         }
+    } catch (error) {
+        console.error("Unexpected error:", error);
+    }
 }
 
 function renderScheduleTable(schedules) {
@@ -93,7 +99,7 @@ function renderScheduleTable(schedules) {
         row.dataset.scheduleId = item.id;
         row.innerHTML = `
             <td>${item.schedule_type || "Not Available"}</td>
-            <td>${item.area?.area_name  || "Not Available"}</td>
+            <td>${item.area?.area_name || "Not Available"}</td>
             <td>${item.requested_by?.email || "Not Available"}</td>
             <td>${item.accepted_by?.email || "Not Available"}</td>
             <td>${item.status || "Not Available"}</td>
@@ -108,10 +114,95 @@ function renderScheduleTable(schedules) {
 // Daily Schedule Functionality
 //===============================
 
+async function dailySchedule() {
+    const allArea = await get_area();
+    console.log(allArea)
+    const tbody = document.querySelector('#dailySchedule');
+    tbody.innerHTML = '';
+    allArea.forEach(area => {
+        console.log(area)
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${area.name || "Not Available"}</td>
+            <td><Button class="submitBtn" data-area-id="${area.id}">Create</Button></td>
+        `
+        tbody.appendChild(row);
+    })
 
 
+    document.querySelector('#dailySchedule').addEventListener('click', (e) => {
+        if (e.target?.classList?.contains('submitBtn')) {
+            let id = e.target.dataset.areaId;
+            const payload = {
+                'area': id,
+                'schedule_type': 'daily'
+            }
+            const messageBox = document.getElementById("scheduleMessageBox");
+            messageBox.textContent = "";
+            messageBox.style.color = ""; 
+
+            const submitBtn = document.querySelector('#dailySchedule').querySelector(".submitBtn");
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Submitting...";
+
+            fetch(`${BASE_URL}schedule/create/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('access_token')}`
+                },
+                body: JSON.stringify(payload)
+            })
+                .then(response => {
+                    return response.json().then(data => {
+                        console.log("RESPONSE STATUS:", response);
+                        console.log("RESPONSE BODY:", data);
+
+                        if (response.ok) {
+                            messageBox.textContent = data.message || "✅ Daily Schedule created successfully!";
+                            messageBox.style.color = "green";
+                            get_area();
+                            get_schedule();
+                            scheduleModal.style.display = "none";
+                        } else {
+                            messageBox.textContent = data.error || "❌ Failed to create schedule.";
+                            messageBox.style.color = "red";
+                        }
+                    });
+                })
+                .catch(error => {
+                    messageBox.textContent = "❌ Network error: " + error.message;
+                    messageBox.style.color = "red";
+                });
 
 
+                
+
+        }
+    });
+}
+
+
+async function get_area() {
+    try {
+        const response = await fetch(`${BASE_URL}schedule/area/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            return data
+        } else {
+            console.error("Error fetching user data:", data.message);
+        }
+    } catch (error) {
+        console.error("Unexpected error:", error);
+    }
+}
 
 
 //========================
