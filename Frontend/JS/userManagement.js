@@ -114,7 +114,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 async function get_user_data() {
-    console.log("hello")
     try {
         const response = await fetch(`${BASE_URL}user/`, {
             method: 'GET',

@@ -158,3 +158,17 @@ class ScheduleAccept(APIView):
         except Exception as e:
             print("Error:", e)
             return Response({"error": "Something went wrong.", "details": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class ScheduleDelete(APIView):
+    permission_classes = [IsAuthenticated]
+    def delete(self, request, pk):
+        try:
+            delete_schedule = Schedule.objects.filter(id=pk)
+            
+            if not delete_schedule.exists():
+                return Response({'error': 'Bin not found'}, status=404)
+
+            delete_schedule.delete()
+            return Response( status=204)
+        except Exception as e:
+            return Response({'error': str(e)}, status=400)

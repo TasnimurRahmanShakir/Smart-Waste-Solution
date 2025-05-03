@@ -113,3 +113,81 @@
     }
 }
 
+/* Schedule Management */
+
+#scheduleBtn {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.toggle-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.toggle-btn.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.schedule-form {
+    animation: fadeInUp 0.3s ease;
+}
+
+
+.area-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.area-table th,
+.area-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.area-table th {
+    background-color: #f2f2f2;
+}
+
+.area-table td button.submit-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.area-table td button.submit-btn:hover {
+    background-color: #218838;
+}
