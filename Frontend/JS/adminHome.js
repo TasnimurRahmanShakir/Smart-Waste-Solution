@@ -3,8 +3,30 @@ import { BASE_URL } from './config.js';
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    
+
+    // Top nav toggle
+    document.getElementById("navToggle").addEventListener("click", () => {
+        document.getElementById("navLinks").classList.toggle("show");
+    });
+
+    // Sidebar toggle
+    document.getElementById("sidebarToggle").addEventListener("click", () => {
+        document.getElementById("sidebarLinks").classList.toggle("show");
+    });
+
+    // Profile dropdown toggle
+
+    document.querySelector('.profile img').addEventListener('click', function () {
+        const dropdown = document.querySelector('.dropdown');
+        dropdown.classList.toggle('show');
+
+    });
+
+
+
     get_summary();
+
+
 });
 async function get_summary() {
     console.log("Fetching summary data...");
@@ -37,12 +59,12 @@ async function get_summary() {
 
         set_chart_data(data.weekly_waste_data);
 
-    }catch (error) {
+    } catch (error) {
         console.error('Error fetching summary:', error.message);
     }
 }
 
-async function set_chart_data(data) { 
+async function set_chart_data(data) {
     const ctx = document.getElementById('wasteGraph').getContext('2d');
     const wasteGraph = new Chart(ctx, {
         type: 'bar',
