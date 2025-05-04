@@ -39,3 +39,8 @@ class RequestFeedbackUpdateStatusView(APIView):
         except RequestFeedback.DoesNotExist:
             return Response({"error": "Request/Feedback not found"}, status=404)
 
+class EmergencyRequestView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        data = RequestFeedback.objects.filter(status='pending')
+        return Response(RequestFeedbackSerializer(data, many=True).data, status=201)

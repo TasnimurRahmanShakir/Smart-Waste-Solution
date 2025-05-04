@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         dailyForm.style.display = 'none';
         emergencyBtn.classList.add('active');
         dailyBtn.classList.remove('active');
+        emergency_schedule();
     });
 
     // Close when clicking outside modal
@@ -203,6 +204,120 @@ async function get_area() {
         console.error("Unexpected error:", error);
     }
 }
+
+//===================================
+// Emergency Schedule Functionality
+//===================================
+
+async function emergency_schedule() {
+    let requestData = await get_request()
+    const dropdown = document.getElementById("requestId");
+    dropdown.innerHTML = '<option value="">--Select One--</option>';
+
+    requestData.forEach(request => {
+        if (request) {
+            const option = document.createElement("option");
+            option.value = request.id;
+            option.textContent = request.request_type;
+
+            option.setAttribute("data-requested-bin", request.requested_bin);
+            option.setAttribute("data-requested_by", request.requested_by.email);
+            option.setAttribute("data-requested_by-id", request.requested_by.id);
+            option.setAttribute("data-message", request.message);
+
+            dropdown.appendChild(option);
+        }
+
+    });
+
+    dropdown.addEventListener("change", (e) => {
+        const selectedOption = e.target.options[e.target.selectedIndex];
+
+        const requestId = selectedOption.value;
+        const binId = selectedOption.getAttribute("data-requested-bin");
+        const requested_email = selectedOption.getAttribute("data-requested_by")
+        const requested_by = selectedOption.getAttribute("data-requested_by-id");
+        const message = selectedOption.getAttribute("data-message");
+        
+        document.getElementById('binId').value = binId;
+        document.getElementById('requested_by').value = requested_email;
+        document.getElementById("message").value = message
+
+        let payload = {
+            'request_feedback': requestId,
+            'schedule_type': 'emergency',
+            'requested_bin': binId,
+            'requested_by': requested_by,
+        }
+
+
+        document.querySelector('.submit-btn').addEventListener('click', () => {
+            create_emergency_schedule(payload);
+        });
+
+    });
+}
+
+async function create_emergency_schedule(payload) {
+    const messageBox = document.getElementById("scheduleMessageBox");
+    messageBox.textContent = "";
+    messageBox.style.color = "";
+
+    const submitBtn = document.querySelector('#dailySchedule').querySelector(".submitBtn");
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Submitting...";
+
+    fetch(`${BASE_URL}schedule/create/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': `Bearer ${localStorage.getItem('access_token')}`
+        },
+        body: JSON.stringify(payload)
+    })
+        .then(response => {
+            return response.json().then(data => {
+                console.log("RESPONSE STATUS:", response);
+                console.log("RESPONSE BODY:", data);
+
+                if (response.ok) {
+                    messageBox.textContent = data.message || "✅ Daily Schedule created successfully!";
+                    messageBox.style.color = "green";
+                    emergency_schedule()
+                    scheduleModal.style.display = "none";
+                } else {
+                    messageBox.textContent = data.error || "❌ Failed to create schedule.";
+                    messageBox.style.color = "red";
+                }
+            });
+        })
+        .catch(error => {
+            messageBox.textContent = "❌ Network error: " + error.message;
+            messageBox.style.color = "red";
+        });
+
+}
+async function get_request() {
+    try {
+        const response = await fetch(`${BASE_URL}requestFeedback/emergencyRequest/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            return data
+        } else {
+            console.error("Error fetching user data:", data.message);
+        }
+    } catch (error) {
+        console.error("Unexpected error:", error);
+    }
+}
+
 
 
 //========================

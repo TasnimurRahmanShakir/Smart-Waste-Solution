@@ -386,6 +386,8 @@ async function populateAreaDropdown() {
         }
 
     });
+
+    
 }
 
 

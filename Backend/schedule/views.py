@@ -35,46 +35,67 @@ class ScheduleCreate(APIView):
     def post(self, request):
         data = request.data.copy()
 
-        if not ('requested_bin' in data or 'area' in data):
-            return Response({"error": "You must provide either 'requested_bin' or 'area'."}, status=status.HTTP_400_BAD_REQUEST)
+        error_response = self._validate_request_data(data)
+        if error_response:
+            return error_response
 
         if 'area' in data:
-            if self._area_has_active_schedule(data['area']):
-                return Response({"error": f"Schedule for this area {data['area']} already exists."}, status=status.HTTP_400_BAD_REQUEST)
-            bin_ids = self._get_bins_in_area(data['area'])
-            if not bin_ids:
-                return Response({"error": "No bins found for the selected area."}, status=status.HTTP_400_BAD_REQUEST)
+            bin_ids = self._process_area_data(data)
+            if isinstance(bin_ids, Response):
+                return bin_ids
             data['bins'] = bin_ids
 
         if 'requested_bin' in data:
-            if self._bin_has_pending_schedule(data['requested_bin']):
-                return Response({"error": f"Bin {data['requested_bin']} is already in a pending schedule."}, status=status.HTTP_400_BAD_REQUEST)
-            data['bins'] = [data['requested_bin']]
+            bin_response = self._process_requested_bin(data)
+            if bin_response:
+                return bin_response
 
         serializer = ScheduleSerializer(data=data)
         if serializer.is_valid():
             schedule = serializer.save()
-            for _bin in schedule.bins.all():
-                    set_color = Bin.objects.get(id=_bin.id)
-                    set_color.color = 'red'
-                    set_color.save()
-            if 'request_feedback' in data:
-                try:
-                    feedback = RequestFeedback.objects.get(id=data['request_feedback'])
-                    feedback.status = 'accepted'
-                    feedback.save()
-                except RequestFeedback.DoesNotExist:
-                    pass
-
+            self._update_bin_colors(schedule.bins.all(), 'red')
+            self._handle_request_feedback(data)
             self._send_notifications(schedule, data)
             return Response({
                 "message": "Schedule created successfully.",
                 "schedule": serializer.data
             }, status=status.HTTP_201_CREATED)
 
-
-
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def _validate_request_data(self, data):
+        if not ('requested_bin' in data or 'area' in data):
+            return Response({"error": "You must provide either 'requested_bin' or 'area'."}, status=status.HTTP_400_BAD_REQUEST)
+        return None
+
+    def _process_area_data(self, data):
+        if self._area_has_active_schedule(data['area']):
+            return Response({"error": f"Schedule for this area {data['area']} already exists."}, status=status.HTTP_400_BAD_REQUEST)
+        bin_ids = self._get_bins_in_area(data['area'])
+        if not bin_ids:
+            return Response({"error": "No bins found for the selected area."}, status=status.HTTP_400_BAD_REQUEST)
+        return bin_ids
+
+    def _process_requested_bin(self, data):
+        if self._bin_has_pending_schedule(data['requested_bin']):
+            return Response({"error": f"Bin {data['requested_bin']} is already in a pending schedule."}, status=status.HTTP_400_BAD_REQUEST)
+        data['bins'] = [data['requested_bin']]
+        return None
+
+    def _update_bin_colors(self, bins, color):
+        for _bin in bins:
+            bin_obj = Bin.objects.get(id=_bin.id)
+            bin_obj.color = color
+            bin_obj.save()
+
+    def _handle_request_feedback(self, data):
+        if 'request_feedback' in data:
+            try:
+                feedback = RequestFeedback.objects.get(id=data['request_feedback'])
+                feedback.status = 'accepted'
+                feedback.save()
+            except RequestFeedback.DoesNotExist:
+                pass
 
 
     def _area_has_active_schedule(self, area_id):
