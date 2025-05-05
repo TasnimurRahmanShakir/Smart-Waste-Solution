@@ -38,42 +38,52 @@
 
 <body>
     <header>
-        <section class="fixedHead">
-            <div class="logoArea">
-                <a href="#"><img src="images/logo.png" alt="Logo" /></a>
-            </div>
+      <section class="fixedHead">
+        <div class="logo-title-container">
+          <div class="logoArea">
+            <a href="#"><img src="images/logo.png" alt="Logo" /></a>
+          </div>
+          <div class="brand-text">
             <h2>ZeroWaste Dynamic</h2>
             <p>Complete Waste Solutions, Zero compromised</p>
-            <nav class="options">
-                <a href="#">HOME</a>
-                <a href="#">BLOGS</a>
-                <a href="#">ABOUT</a>
-                <a href="#">CONTACT</a>
-                <div class="profile">
-                    <img src="images/man2.jpg" alt="Profile">
-                    <div class="dropdown" id="profileDropdown">
-                        <a href="#" id="logoutBtn">Logout</a>
-                    </div>
+          </div>
+        </div>
 
-                </div>
-            </nav>
+        <div class="menu-toggle" id="navToggle">
+          <i class="fas fa-bars"></i>
+        </div>
 
-        </section>
+        <nav class="options" id="navLinks">
+          <a href="#">HOME</a>
+          <a href="#">BLOGS</a>
+          <a href="#">ABOUT</a>
+          <a href="#">CONTACT</a>
+          <div class="profile">
+            <img src="images/man2.jpg" alt="Profile" />
+            <div class="dropdown">
+              <a href="#" id="logoutBtn">Logout</a>
+            </div>
+          </div>
+        </nav>
+      </section>
     </header>
-    <div class="menuArea">
-        <ul>
-            <li><a href="adminHome.html">Home</a></li>
-            <li><a href="">Blog Management</a></li>
-            <li><a href="userManagement.html">User Management</a></li>
-            <li><a href="binManagement.html">Bin Management</a></li>
-            <li><a href="vehicleManagement.html">Vehicle Management</a></li>
-            <li><a href="./scheduleManagement.html">Schedule Management</a></li>
-            <li><a href="areaManagement.html">Area Management</a></li>
-            <li><a href="./monitoring.html">Monitoring</a></li>
-            <li><a href="#">Notifications</a></li>
-            <li><a href="#">Reports</a></li>
 
-        </ul>
+    <div class="menuArea" id="sidebarMenu">
+      <div class="menu-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul id="sidebarLinks">
+        <li><a href="adminHome.html">Home</a></li>
+        <li><a href="">Blog Management</a></li>
+        <li><a href="userManagement.html">User Management</a></li>
+        <li><a href="binManagement.html">Bin Management</a></li>
+        <li><a href="vehicleManagement.html">Vehicle Management</a></li>
+        <li><a href="./scheduleManagement.html">Schedule Management</a></li>
+        <li><a href="areaManagement.html">Area Management</a></li>
+        <li><a href="./monitoring.html">Monitoring</a></li>
+        <li><a href="#">Notifications</a></li>
+        <li><a href="#">Reports</a></li>
+      </ul>
     </div>
 
     <div>
