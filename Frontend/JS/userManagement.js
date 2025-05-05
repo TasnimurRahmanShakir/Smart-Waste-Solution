@@ -4,6 +4,23 @@ import { checkUser } from "./auth.js";
 
 let allUsers = [];
 document.addEventListener('DOMContentLoaded', async () => {
+    // Top nav toggle
+    document.getElementById("navToggle").addEventListener("click", () => {
+        document.getElementById("navLinks").classList.toggle("show");
+    });
+
+    // Sidebar toggle
+    document.getElementById("sidebarToggle").addEventListener("click", () => {
+        document.getElementById("sidebarLinks").classList.toggle("show");
+    });
+
+    // Profile dropdown toggle
+
+    document.querySelector('.profile img').addEventListener('click', function () {
+        const dropdown = document.querySelector('.dropdown');
+        dropdown.classList.toggle('show');
+
+    });
     let userData = await checkUser();
     if (userData.user_type !== 'admin') {
 
