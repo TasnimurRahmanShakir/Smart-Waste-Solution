@@ -620,3 +620,40 @@ footer{
 .report-card button:hover {
   background-color: #2980b9;
 }
+
+
+/* Notification Design Started From Here */
+
+.notification-section {
+  margin-top: 50px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.notification-section h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #34495e;
+  font-size: 1.8rem;
+}
+
+.notification-list {
+  list-style: none;
+  padding: 0;
+}
+
+.notification {
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: black;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+
+.notification {
+  background-color: #f1f1f1;
+}
