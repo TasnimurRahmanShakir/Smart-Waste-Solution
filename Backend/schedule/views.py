@@ -28,7 +28,10 @@ class ScheduleView(APIView):
                     output_field=IntegerField()
                 ))
         elif request.user.user_type == 'collector':
-            schedules = Schedule.objects.filter(Q(accepted_by=request.user) | Q(status__in=['pending', 'ongoing']))
+            schedules = Schedule.objects.filter(accepted_by=request.user) | Schedule.objects.filter(
+                    schedule_type='emergency',
+                    status='pending',
+                ) | Schedule.objects.filter(area=request.user.area)
         serializer = ScheduleSerializer(schedules, many=True)
         return Response(serializer.data)
     
@@ -192,6 +195,8 @@ class ScheduleAccept(APIView):
             schedule = Schedule.objects.get(id=pk)
             if schedule.accepted_by_id:
                 return Response({"error": "Schedule already accepted."}, status=status.HTTP_400_BAD_REQUEST)
+            elif schedule.status == 'missed':
+                return Response({"error": "You cannot accept a missed schedule"}, status=status.HTTP_400_BAD_REQUEST)
             request.data['accepted_by'] = request.user.id
             request.data['status'] = 'ongoing'
             serializer = ScheduleSerializer(schedule, data=request.data, partial=True)
