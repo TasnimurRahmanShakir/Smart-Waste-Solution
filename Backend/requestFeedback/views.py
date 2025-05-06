@@ -19,14 +19,16 @@ class RequestFeedbackCreateView(APIView):
         
         if serializer.is_valid():
             serializer.save()
-            send_notification_to_admin(f"New request/feedback from {request.user.email}")
+            
             
             for admin in CustomUser.objects.filter(user_type='admin'):
-                Notification.objects.create(
+                notification = Notification.objects.create(
                     where_to_send=admin,
                     message=f"New request/feedback from {request.user.email}",
                 )
+                send_notification_to_admin(f"New request/feedback from {request.user.email}", notification.created_at)
 
+            
             return Response({"message": "Feedback submitted successfully."})
         return Response(serializer.errors, status=400)
 
@@ -41,11 +43,12 @@ class RequestFeedbackUpdateStatusView(APIView):
             print("Feedback status:", feedback.requested_by_id)
             if serializer.is_valid():
                 serializer.save()
-                send_notification_to_user(feedback.requested_by_id, f"Your request has been {feedback.status}")
-                Notification.objects.create(
+                
+                notification = Notification.objects.create(
                     where_to_send=feedback.requested_by, 
                     message=f"Your request has been {feedback.status}",
                 )
+                send_notification_to_user(feedback.requested_by_id, f"Your request has been {feedback.status}", notification.created_at)
 
             return Response({"message": "Status updated successfully."})
         except RequestFeedback.DoesNotExist:

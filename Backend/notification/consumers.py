@@ -34,7 +34,6 @@ class NotificationConsumer(AsyncWebsocketConsumer):
                         group_name,
                         self.channel_name
                     )
-                    await self.send(json.dumps({'message': 'Authenticated!'}))
 
                 except Exception as e:
                     print("Auth error:", str(e))
@@ -51,5 +50,6 @@ class NotificationConsumer(AsyncWebsocketConsumer):
     async def send_notification(self, event):
         message = event['message']
         await self.send(text_data=json.dumps({
-            'message': message
+            'message': message,
+            'created_at': event['created_at']
         }))

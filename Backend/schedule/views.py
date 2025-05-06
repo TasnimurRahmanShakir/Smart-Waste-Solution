@@ -111,11 +111,12 @@ class ScheduleCreate(APIView):
 
     def _send_notifications(self, schedule, data):
         if 'requested_by' in data:
-            send_notification_to_user(data['requested_by'], f"Your Collection request is now accepted. New schedule created with ID: {schedule.id}")
-            Notification.objects.create(
+            
+            notification = Notification.objects.create(
                 where_to_send=CustomUser.objects.get(id=data['requested_by']),
                 message=f"Your Collection request is now accepted. New schedule created with ID: {schedule.id}",
             )
+            send_notification_to_user(data['requested_by'], f"Your Collection request is now accepted. New schedule created with ID: {schedule.id}", notification.created_at)
 
         if 'area' in data:
             collectors = CustomUser.objects.filter(user_type='collector', area_id=data['area'])
@@ -123,11 +124,12 @@ class ScheduleCreate(APIView):
             collectors = CustomUser.objects.filter(user_type='collector')
 
         for collector in collectors:
-            send_notification_to_user(collector.id, f"New {schedule.schedule_type} schedule created. Please check your tasks.")
-            Notification.objects.create(
+            
+            notification = Notification.objects.create(
                 where_to_send=collector,
                 message=f"New {schedule.schedule_type} schedule created. Please check your tasks.",
             )
+            send_notification_to_user(collector.id, f"New {schedule.schedule_type} schedule created. Please check your tasks.", notification.created_at)
 
 class ScheduleUpdate(APIView):
     permission_classes = [IsAuthenticated]
@@ -156,19 +158,21 @@ class ScheduleUpdate(APIView):
                         schedule.request_feedback.status = 'completed'
                         schedule.request_feedback.save()
 
-                    send_notification_to_user(schedule.requested_by_id, f"Your Collection request is now completed. Schedule ID: {schedule.id}")
+                   
                     
-                    Notification.objects.create(
+                    notification = Notification.objects.create(
                         where_to_send=schedule.requested_by,
                         message=f"Your Collection request is now completed. Schedule ID: {schedule.id}",
                     )
+                    send_notification_to_user(schedule.requested_by_id, f"Your Collection request is now completed. Schedule ID: {schedule.id}", notification.created_at)
                 else:
-                    send_notification_to_admin( f"{schedule.area} is now completed. Schedule ID: {schedule.id}")
+                    
                     for admin in CustomUser.objects.filter(user_type='admin'):
-                        Notification.objects.create(
+                        notification = Notification.objects.create(
                             where_to_send=admin,
                             message=f"{schedule.area} is now completed. Schedule ID: {schedule.id}",
                         )
+                        send_notification_to_admin( f"{schedule.area} is now completed. Schedule ID: {schedule.id}", notification.created_at)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -196,12 +200,13 @@ class ScheduleAccept(APIView):
                 if schedule.request_feedback:
                     schedule.request_feedback.status = 'in_progress'
                     schedule.request_feedback.save()
-                    send_notification_to_user(schedule.request_feedback.requested_by_id, f"Your request is in Progress. Schedule ID: {schedule.id}")
                     
-                    Notification.objects.create(
+                    
+                    notification = Notification.objects.create(
                         where_to_send=schedule.request_feedback.requested_by,
                         message=f"Your request is in Progress. Schedule ID: {schedule.id}",
                     )
+                    send_notification_to_user(schedule.request_feedback.requested_by_id, f"Your request is in Progress. Schedule ID: {schedule.id}", notification.created_at)
                     
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
