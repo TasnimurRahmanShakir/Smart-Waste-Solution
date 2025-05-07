@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Auth Check
     const userData = await checkUser();
-    if (userData.user_type !== 'admin') {
+    if (!userData) {
         localStorage.setItem('redirectAfterLogin', window.location.href);
         window.location.href = '../login.html';
     }
