@@ -119,6 +119,7 @@ async function registerUser() {
             let data;
             try {
                 data = await response.json();
+                console.log(data)
             } catch (jsonError) {
                 console.error("JSON parsing error:", jsonError);
                 throw new Error("Invalid JSON in response");

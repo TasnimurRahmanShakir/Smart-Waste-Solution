@@ -20,14 +20,22 @@ class VehicleListCreateView(APIView):
     
 class VehicleDetailView(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request):
         try:
-            vehicle = Vehicle.objects.all()
-            serializer = VehicleSerializer(vehicle, many=True)
+            if request.user.user_type == 'admin':
+                vehicles = Vehicle.objects.all()
+                serializer = VehicleSerializer(vehicles, many=True)
+            elif request.user.user_type == 'collector':
+                vehicle = Vehicle.objects.get(assigned_to=request.user)
+                serializer = VehicleSerializer(vehicle)
+            else:
+                return Response({"error": "Unauthorized user type"}, status=403)
+
             return Response(serializer.data, status=200)
-            
+
         except Vehicle.DoesNotExist:
-            return Response({"error": "Vehicle not found"}, status=404)
+            return Response({"error": "No vehicle found for this user"}, status=404)
         
 class VehicleAssignView(APIView):
     permission_class = [IsAuthenticated]

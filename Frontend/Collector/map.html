@@ -8,6 +8,15 @@
   <title>Smart Waste Solution</title>
   <link rel="stylesheet" href="../admin/admin.css" />
   <!-- Font Awesome Link -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Leaflet Routing Machine -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -15,7 +24,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
-  <link href="../CSS/binManagement.css" rel="stylesheet" />
+
+  <style>
+    #map {
+      height: 500px;
+      width: 800px;
+      border: 1px solid black;
+      margin: 20px auto;
+    }
+
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+  </style>
 </head>
 
 <body>
@@ -23,7 +45,7 @@
     <section class="fixedHead">
       <div class="logo-title-container">
         <div class="logoArea">
-          <a href="#"><img src="images/logo.png" alt="Logo" /></a>
+          <a href="#"><img src="../admin/images/logo.png" alt="Logo" /></a>
         </div>
         <div class="brand-text">
           <h2>ZeroWaste Dynamic</h2>
@@ -41,7 +63,7 @@
         <a href="#">ABOUT</a>
         <a href="#">CONTACT</a>
         <div class="profile">
-          <img src="images/man2.jpg" alt="Profile" />
+          <img src="../admin/images/man2.jpg" alt="Profile" />
           <div class="dropdown">
             <a href="#" id="logoutBtn">Logout</a>
           </div>
@@ -56,8 +78,8 @@
     </div>
     <ul id="sidebarLinks">
       <li><a href="adminHome.html">Home</a></li>
-      <li><a href="./scheduleManagement.html">Schedule</a></li>
-      <li><a href="./monitoring.html">Map</a></li>
+      <li><a href="./collectorSchedule.html">Schedule</a></li>
+      <li><a href="./map.html">Monitoring</a></li>
       <li>
         <a href="collectorNotification.html">
           Notifications
@@ -68,52 +90,19 @@
     </ul>
   </div>
 
-  <section class="schedule-data">
-
-    <div id="messageBox" class="message-box" style="display: none"></div>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Area</th>
-          <th>BIN ID</th>
-          <th>status</th>
-          <th>Accept</th>
-          <th>Confirm</th>
-        </tr>
-      <tbody class="table_body">
-
-      </tbody>
-
-      </thead>
-      <tbody class="table_body">
-        <!-- Example rows -->
-
-        <!-- More rows will go here -->
-      </tbody>
-    </table>
-
-    <div id="scheduleModal" class="modal">
-      <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h2>Update your Collection</h2>
-        <div id="scheduleFormMessage" style="margin-bottom: 10px; font-weight: bold;"></div>
-        <form id="schedule_form" action="#" method="POST">
-          <div class="form-group">
-            <label for="weight">Name</label>
-            <input type="number" id="weight" name="weight" step="0.1" required>
-          </div>
-
-          <button type="submit" class="submit-btn">Add Bin</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Modal Popup for New Vehicle registration -->
-
+  <div>
+    <h1>City Waste Monitoring Map</h1>
+    <label>
+      <input type="checkbox" id="showAreaCheckbox" />
+      Show Area
+    </label>
+    <div id="map"></div>
+  </div>
   <script type="module" src="../JS/notificationsSocket.js"></script>
-  <script type="module" src="../JS/collectorSchedule.js"></script>
+  <script type="module" src="../JS/collectorMap.js"></script>
+  <script>
+
+  </script>
 
   <footer>
     <section class="foot">
@@ -130,6 +119,8 @@
       </div>
     </section>
   </footer>
+
+
 </body>
 
 </html>

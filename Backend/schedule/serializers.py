@@ -1,12 +1,14 @@
 from rest_framework import serializers
 from .models import Schedule
 from bin.models import Bin
+from bin.serializers import BinSerializer
 from user.models import CustomUser
 from user.serializer import UserSerializer
 from area.models import AreaModel
 from area.serializers import AreaSerializer
 
 class ScheduleSerializer(serializers.ModelSerializer):
+    bins = BinSerializer(many=True, read_only=True)
     requested_by = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all(), required=False)
     accepted_by = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all(), required=False)
     area = serializers.PrimaryKeyRelatedField(queryset=AreaModel.objects.all(), required=False)
