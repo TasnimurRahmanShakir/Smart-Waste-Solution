@@ -4,21 +4,54 @@ from rest_framework.views import APIView
 from .serializers import BinSerializer
 from .models import Bin
 from rest_framework.permissions import IsAuthenticated
+import math
 # Create your views here.
 
 
 class BinListView(APIView):
     permission_classes = [IsAuthenticated]
-    def get(self, request):
-        bins = Bin.objects.all()
-        serializer = BinSerializer(bins, many=True)
-        return Response(serializer.data)
     
+    def haversine(self, lat1, lon1, lat2, lon2):
+        R = 6371 
+        phi1 = math.radians(lat1)
+        phi2 = math.radians(lat2)
+        delta_phi = math.radians(lat2 - lat1)
+        delta_lambda = math.radians(lon2 - lon1)
+
+        a = math.sin(delta_phi/2)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(delta_lambda/2)**2
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+        return R * c 
+    
+    def get(self, request):
+        if request.user.user_type == 'admin':
+            bins = Bin.objects.all()
+            serializer = BinSerializer(bins, many=True)
+            return Response(serializer.data)
+        
+        elif request.user.user_type == 'citizen':
+            try:
+                user_lat = float(request.query_params['latitude'])
+                user_lng = float(request.query_params['longitude'])
+                print(user_lat, user_lng)
+            except (TypeError, ValueError):
+                return Response({'error': 'Invalid or missing latitude/longitude'}, status=400)
+
+            bins = Bin.objects.all()
+            distances = []
+            for bin in bins:
+                distance = self.haversine(user_lat, user_lng, bin.latitude, bin.longitude)
+                distances.append((bin, distance))
+            
+            distances.sort(key=lambda x: x[1])
+            closest_bins = [bin for bin, _ in distances[:5]] 
+            
+            serializer = BinSerializer(closest_bins, many=True)
+            return Response(serializer.data)
 class AddNewBinView(APIView):
     permission_class = [IsAuthenticated]
     def post(self, request):
         try:
-            print(request.data)
             serializer = BinSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
