@@ -78,6 +78,34 @@ document.addEventListener('DOMContentLoaded', async function () {
             scheduleModal.style.display = 'none';
         }
     });
+
+
+    // Event listener for search and filter
+    const searchBox = document.getElementById("searchBox");
+    const roleFilter = document.getElementById("roleFilter");
+
+    searchBox.addEventListener("input", applySearchAndFilter);
+    roleFilter.addEventListener("change", applySearchAndFilter);
+
+    function applySearchAndFilter() {
+        const query = searchBox.value.toLowerCase();
+        const selectedRole = roleFilter.value.toLowerCase();
+        const filtered = allSchedule.filter(schedule => {
+            const type = `${schedule.schedule_type || ""}`.toLowerCase();
+            const area = (schedule.area?.area_name || "").toLowerCase();
+            const requestedBy = (schedule.requested_by?.email || "").toLowerCase();
+            const acceptedBy = (schedule.accepted_by?.email || "").toLowerCase();
+            const status = (schedule.status || "").toLowerCase();
+
+            const matchesSearch = type.includes(query) || area.includes(query) || requestedBy.includes(query) || acceptedBy.includes(query) || status.includes(query);
+
+            const matchesRole = !selectedRole || status === selectedRole;
+
+            return matchesSearch && matchesRole;
+        });
+
+        renderScheduleTable(filtered);
+    }
 });
 
 //========================
