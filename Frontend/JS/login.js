@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     window.location.href = redirectUrl;
                 } else {
                     console.log(window.location.href)
-                    window.location.href = '../Citizen/citizenHome.html';
+                    window.location.href = './Citizen/citizenHome.html';
                 }
             } else if (data.user.user_type === 'collector') {
                 const redirectUrl = localStorage.getItem('redirectAfterLogin');
@@ -70,7 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     window.location.href = redirectUrl;
                 } else {
                     console.log(window.location.href)
-                    window.location.href = '../Collector/collectorHome.html';
+                    alert(window.location.href)
+                    window.location.href = './Collector/collectorHome.html';
                 }
             }
             
