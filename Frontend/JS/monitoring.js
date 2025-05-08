@@ -166,3 +166,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     socket.onerror = (err) => console.error("WebSocket error:", err);
     socket.onclose = () => console.warn("WebSocket closed.");
 });
+
+document.getElementById("logoutBtn").addEventListener('click', function () {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.href = "../index.html";
+
+})

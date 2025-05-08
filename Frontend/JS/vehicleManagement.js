@@ -324,3 +324,10 @@ async function delete_vehicle(id) {
         console.error("Unexpected error while fetching vehicles:", error);
     }
 }
+
+document.getElementById("logoutBtn").addEventListener('click', function () {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.href = "../index.html";
+
+})

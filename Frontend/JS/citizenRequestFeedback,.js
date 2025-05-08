@@ -162,3 +162,10 @@ document.getElementById("request_form").addEventListener("submit", async functio
         submitBtn.innerText = "Submit";
     }
 });
+
+document.getElementById("logoutBtn").addEventListener('click', function () {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        window.location.href = "../index.html";
+
+})

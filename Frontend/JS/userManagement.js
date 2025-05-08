@@ -522,3 +522,10 @@ async function get_vehicle() {
         console.error("Unexpected error while fetching vehicles:", error);
     }
 }
+
+document.getElementById("logoutBtn").addEventListener('click', function () {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.href = "../index.html";
+
+})

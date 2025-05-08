@@ -16,7 +16,7 @@ class RequestFeedbackView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        queryset = RequestFeedback.objects.filter(requested_by=request.user)
+        queryset = RequestFeedback.objects.filter(requested_by=request.user).order_by('-created_at')
         serializer = RequestFeedbackSerializer(queryset, many=True)
         return Response(serializer.data, status=201)
 class RequestFeedbackCreateView(APIView): 

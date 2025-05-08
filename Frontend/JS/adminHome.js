@@ -89,3 +89,9 @@ async function set_chart_data(data) {
         }
     });
 }
+document.getElementById("logoutBtn").addEventListener('click', function () {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.href = "../index.html";
+
+})

@@ -204,3 +204,10 @@ document.querySelector('.table_body').addEventListener('click', (e) => {
             });
     }
 });
+
+document.getElementById("logoutBtn").addEventListener('click', function () {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.href = "../index.html";
+
+})

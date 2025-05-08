@@ -66,3 +66,10 @@ function hideNotificationIndicator() {
     const dot = document.getElementById('sidebarNotificationDot');
     if (dot) dot.style.display = 'none';
 }
+
+document.getElementById("logoutBtn").addEventListener('click', function () {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.href = "../index.html";
+
+})

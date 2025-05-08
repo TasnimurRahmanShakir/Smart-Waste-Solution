@@ -206,3 +206,10 @@ function showMessage(message) {
     box.style.display = 'block';
     box.style.color = 'red';
 }
+
+document.getElementById("logoutBtn").addEventListener('click', function () {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.href = "../index.html";
+
+})

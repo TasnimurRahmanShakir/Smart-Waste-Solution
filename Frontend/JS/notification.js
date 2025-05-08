@@ -104,3 +104,10 @@ document.addEventListener("DOMContentLoaded", () => {
         showNotificationIndicator();
     }
 });
+
+document.getElementById("logoutBtn").addEventListener('click', function () {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    window.location.href = "../index.html";
+
+})
