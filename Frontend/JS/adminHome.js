@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 async function get_summary() {
     console.log("Fetching summary data...");
     const userData = await checkUser();
-    if (!userData) {
+    if (userData.user_type !== 'admin') {
         console.log("User data not found, Please login/register a new account.");
         return;
     }

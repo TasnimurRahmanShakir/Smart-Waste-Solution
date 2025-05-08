@@ -3,10 +3,9 @@ import { BASE_URL } from './config.js';
 document.addEventListener("DOMContentLoaded", function () { 
     const loginForm = document.getElementById("login_form");
     const loginButton = document.getElementById("login_button");
-    // const loginError = document.getElementById("login_error");
 
-    console.log(loginForm);
-    console.log(loginButton);
+    // localStorage.removeItem('redirectAfterLogin')
+
 
     loginForm.addEventListener("submit", async function (event) {
         event.preventDefault(); // Prevent the form from submitting the default way
@@ -33,14 +32,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (!response.ok) {
                 const errorData = await response.json();
+                alert('Login failed');
                 throw new Error(errorData.detail || 'Login failed');
             }
 
             const data = await response.json();
-
+            console.log(data)
             localStorage.setItem('access_token', data.access);
             localStorage.setItem('refresh_token', data.refresh);
-
+            
             if (data.user.user_type === 'admin') {
                 const redirectUrl = localStorage.getItem('redirectAfterLogin');
                 if (redirectUrl) {
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log(window.location.href)
                     window.location.href = '../Citizen/citizenHome.html';
                 }
-            } else {
+            } else if (data.user.user_type === 'collector') {
                 const redirectUrl = localStorage.getItem('redirectAfterLogin');
                 if (redirectUrl) {
                     console.log(redirectUrl)
