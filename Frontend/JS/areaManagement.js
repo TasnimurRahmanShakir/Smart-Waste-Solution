@@ -208,6 +208,7 @@ document.querySelector('.table_body').addEventListener('click', (e) => {
 document.getElementById("logoutBtn").addEventListener('click', function () {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
+    localStorage.removeItem('redirectAfterLogin')
     window.location.href = "../index.html";
 
 })

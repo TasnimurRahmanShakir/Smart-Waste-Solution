@@ -120,11 +120,11 @@ document.getElementById("request_form").addEventListener("submit", async functio
 
     const formData = new FormData(this);
     const payload = Object.fromEntries(formData.entries());
-    payload.requested_by = userId; 
+    payload.requested_by = userId;
     if (payload.request_type !== "collection_request" && payload.request_type !== "bin") {
         payload.status = null;
     }
-    
+
 
     const submitBtn = this.querySelector(".submit-btn");
     submitBtn.disabled = true;
@@ -164,8 +164,9 @@ document.getElementById("request_form").addEventListener("submit", async functio
 });
 
 document.getElementById("logoutBtn").addEventListener('click', function () {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
-        window.location.href = "../index.html";
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem('redirectAfterLogin')
+    window.location.href = "../index.html";
 
 })

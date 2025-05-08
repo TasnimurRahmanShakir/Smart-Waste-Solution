@@ -70,6 +70,7 @@ function hideNotificationIndicator() {
 document.getElementById("logoutBtn").addEventListener('click', function () {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
+    localStorage.removeItem('redirectAfterLogin')
     window.location.href = "../index.html";
 
 })

@@ -2,6 +2,7 @@ import { BASE_URL } from "./config.js";
 import { checkUser } from "./auth.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+    localStorage.removeItem('redirectAfterLogin')
     initializePasswordValidation();
     registerUser();
 });
