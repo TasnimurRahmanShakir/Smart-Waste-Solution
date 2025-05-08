@@ -11,10 +11,19 @@ from notification.models import Notification
 from user.models import CustomUser
 from notification.service import send_notification_to_admin, send_notification_to_user
 
-class RequestFeedbackCreateView(APIView):
+
+class RequestFeedbackView(APIView):
     permission_classes = [IsAuthenticated]
 
+    def get(self, request):
+        queryset = RequestFeedback.objects.filter(requested_by=request.user)
+        serializer = RequestFeedbackSerializer(queryset, many=True)
+        return Response(serializer.data, status=201)
+class RequestFeedbackCreateView(APIView): 
+    permission_classes = [IsAuthenticated]
+    
     def post(self, request):
+
         serializer = RequestFeedbackSerializer(data=request.data)
         
         if serializer.is_valid():

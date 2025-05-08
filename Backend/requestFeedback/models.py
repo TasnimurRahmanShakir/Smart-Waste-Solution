@@ -12,7 +12,7 @@ class RequestFeedback(models.Model):
     requested_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     requested_bin = models.ForeignKey('bin.Bin', on_delete=models.CASCADE, null=True, blank=True) 
     message = models.TextField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     request_type = models.CharField(max_length=20, choices=[
         ('feedback', 'Feedback'),

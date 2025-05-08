@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Smart Waste Solution</title>
+  <link rel="stylesheet" href="../admin/admin.css" />
+  <!-- Font Awesome Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Font Link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
+  <link href="../CSS/binManagement.css" rel="stylesheet" />
+
+
+
+</head>
+
+<body>
+  <header>
+    <section class="fixedHead">
+      <div class="logo-title-container">
+        <div class="logoArea">
+          <a href="#"><img src="../admin/images/logo.png" alt="Logo" /></a>
+        </div>
+        <div class="brand-text">
+          <h2>ZeroWaste Dynamic</h2>
+          <p>Complete Waste Solutions, Zero compromised</p>
+        </div>
+      </div>
+
+      <div class="menu-toggle" id="navToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+
+      <nav class="options" id="navLinks">
+        <a href="#">HOME</a>
+        <a href="#">BLOGS</a>
+        <a href="#">ABOUT</a>
+        <a href="#">CONTACT</a>
+        <div class="profile">
+          <img src="images/man2.jpg" alt="Profile" />
+          <div class="dropdown">
+            <a href="#" id="logoutBtn">Logout</a>
+          </div>
+        </div>
+      </nav>
+    </section>
+  </header>
+
+  <div class="menuArea" id="sidebarMenu">
+    <div class="menu-toggle" id="sidebarToggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul id="sidebarLinks">
+      <li><a href="./citizenHome.html">Home</a></li>
+      <li><a href="./requestFeedback.html">Request/Issue/Feedback</a></li>
+      <li>
+          <a href="./citizenNotification.html">
+            Notifications
+            <span
+              id="sidebarNotificationDot"
+              style="color: red; font-size: 20px; display: none"
+              >•</span
+            >
+          </a>
+        </li>
+    </ul>
+  </div>
+
+  <section class="bin-data">
+    <div class="section-header">
+      <h2 class="section-title">All Request/Issue/Feedback</h2>
+      <div class="user-actions">
+        <input type="text" id="searchBox" placeholder="Search by Area name" />
+
+
+      </div>
+    </div>
+    <div id="messageBox" class="message-box" style="display:none;"></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Message</th>
+          <th>Created At</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody class="table_body">
+        <!-- Example rows -->
+
+        <!-- More rows will go here -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Add New area Button -->
+  <button id="addBtn"><i class="fa fa-plus"></i> Add New</button>
+
+  <!-- Modal Popup for Area Management -->
+  <!-- Modal Popup for Request/Feedback -->
+  <div id="requestModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Request/Issue/Feedback</h2>
+      <div id="requestFormMessage" style="margin-bottom: 10px; font-weight: bold;"></div>
+      <form id="request_form" method="POST">
+        <div class="form-group">
+          <label for="requestType">Request Type</label>
+          <select id="requestType" name="request_type" required>
+            <option value="feedback">Feedback</option>
+            <option value="collection_request">Collection Request</option>
+            <option value="bin">Bin Logs</option>
+            <option value="complaint">Complaint</option>
+            <option value="suggestion">Suggestion</option>
+          </select>
+        </div>
+  
+        <div id="binIdGroup" class="form-group" style="display: none;">
+          <label for="binId">Bin ID</label>
+          <input type="text" id="binId" name="requested_bin" />
+        </div>
+  
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="Write your message..."></textarea>
+        </div>
+  
+        <input type="hidden" id="status" name="status" value="" />
+  
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+  </div>
+
+
+  <script type="module" src="../JS/notificationsSocket.js"></script>
+  <script type="module" src="../JS/citizenRequestFeedback,.js"></script>
+
+  <footer>
+    <section class="foot">
+      <p>&copy; 2025 Smart Waste Solution</p>
+      <div class="rightSocial">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
+        <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </section>
+  </footer>
+</body>
+
+</html>

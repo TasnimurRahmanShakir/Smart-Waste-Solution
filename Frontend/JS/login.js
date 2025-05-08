@@ -53,9 +53,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
             else if (data.user.user_type === 'citizen') {
-                console.log('Citizen login successful!');
+                const redirectUrl = localStorage.getItem('redirectAfterLogin');
+                if (redirectUrl) {
+                    console.log(redirectUrl)
+                    localStorage.removeItem('redirectAfterLogin');
+                    window.location.href = redirectUrl;
+                } else {
+                    console.log(window.location.href)
+                    window.location.href = '../Citizen/citizenHome.html';
+                }
             } else {
-                console.log("Collector login successful!");
+                const redirectUrl = localStorage.getItem('redirectAfterLogin');
+                if (redirectUrl) {
+                    console.log(redirectUrl)
+                    localStorage.removeItem('redirectAfterLogin');
+                    window.location.href = redirectUrl;
+                } else {
+                    console.log(window.location.href)
+                    window.location.href = '../Collector/collectorHome.html';
+                }
             }
             
         } catch (error) {

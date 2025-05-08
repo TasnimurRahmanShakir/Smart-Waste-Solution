@@ -2,6 +2,7 @@
 #binModal {
     display: none;
 }
+
 #addBtn {
     position: fixed;
     bottom: 30px;
@@ -20,6 +21,7 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     z-index: 1000;
 }
+
 .deleteBtn {
     background-color: red;
     color: white;
@@ -32,6 +34,7 @@
 .deleteBtn:hover {
     background-color: darkred;
 }
+
 #addBtn i {
     font-size: 18px;
 }
@@ -48,6 +51,7 @@
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.6);
 }
+
 .message-box {
     padding: 10px;
     margin-bottom: 20px;
@@ -64,6 +68,7 @@
     background-color: #f8d7da;
     color: #721c24;
 }
+
 .modal-content {
     background-color: #fff;
     margin: 10% auto;
@@ -161,105 +166,114 @@
 }
 
 .area-table {
-        width: 100%;
-        border-collapse: collapse;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-    /* Table Header Styling */
-    .area-table thead {
-        background-color: #007bff;
-        color: #fff;
+/* Table Header Styling */
+.area-table thead {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.area-table th {
+    padding: 12px 15px;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Table Body Styling */
+.area-table tbody {
+    background-color: #f9f9f9;
+}
+
+.area-table td {
+    padding: 12px 15px;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Row Hover Effect */
+.area-table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.table_body td {
+    white-space: normal;
+    word-wrap: break-word;
+    vertical-align: top;
+    padding: 8px;/
+}
+
+/* Button Styling */
+.submitBtn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Button Hover Effect */
+.submitBtn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Button Disabled Styling */
+.submitBtn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+
+#message {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: inherit;
+}
+
+#message:focus {
+    border-color: #3b82f6;
+    /* blue-500 */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    /* blue shadow */
+    outline: none;
+}
+
+/* Responsive Table */
+@media screen and (max-width: 768px) {
+
+    .area-table th,
+    .area-table td {
+        padding: 10px;
     }
 
     .area-table th {
-        padding: 12px 15px;
-        text-align: center;
-        font-size: 16px;
-    }
-
-    /* Table Body Styling */
-    .area-table tbody {
-        background-color: #f9f9f9;
+        font-size: 14px;
     }
 
     .area-table td {
-        padding: 12px 15px;
-        text-align: center;
-        font-size: 14px;
-        border-bottom: 1px solid #ddd;
+        font-size: 12px;
     }
 
-    /* Row Hover Effect */
-    .area-table tr:hover {
-        background-color: #f1f1f1;
-        cursor: pointer;
-    }
-
-    /* Button Styling */
     .submitBtn {
-        background-color: #28a745;
-        color: #fff;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 5px;
-        font-size: 14px;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.2s;
+        padding: 6px 12px;
+        font-size: 12px;
     }
-
-    /* Button Hover Effect */
-    .submitBtn:hover {
-        background-color: #218838;
-        transform: scale(1.05);
-    }
-
-    /* Button Disabled Styling */
-    .submitBtn:disabled {
-        background-color: #cccccc;
-        cursor: not-allowed;
-    }
-
-
-        #message {
-            width: 100%;
-            min-height: 100px;
-            padding: 12px 14px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            resize: vertical;
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
-            transition: border-color 0.3s, box-shadow 0.3s;
-            font-family: inherit;
-        }
-    
-        #message:focus {
-            border-color: #3b82f6;
-            /* blue-500 */
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-            /* blue shadow */
-            outline: none;
-        }
-
-    /* Responsive Table */
-    @media screen and (max-width: 768px) {
-        .area-table th, .area-table td {
-            padding: 10px;
-        }
-
-        .area-table th {
-            font-size: 14px;
-        }
-
-        .area-table td {
-            font-size: 12px;
-        }
-
-        .submitBtn {
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-    }
+}
