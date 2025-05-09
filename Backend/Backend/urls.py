@@ -33,5 +33,5 @@ urlpatterns = [
     path('api/schedule/', include('schedule.urls')),
     path('api/depot/', include('depot.urls')),
     path('api/notification/', include('notification.urls')),
-    # path('api/report/', include('report.urls')),
+    path('api/announcement/', include('announcement.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

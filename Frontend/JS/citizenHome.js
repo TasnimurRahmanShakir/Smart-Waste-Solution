@@ -27,6 +27,26 @@ document.addEventListener('DOMContentLoaded', async function () {
         return;
     }
 
+    document.getElementById('welcome').innerHTML = "Welcome " + userData.first_name + "!";
+    fetch(`${BASE_URL}announcement/`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            const list = document.getElementById('announcement-list');
+            list.innerHTML = '';
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = ` ${item.message}`;
+                list.appendChild(li);
+            });
+        });
+
 
 
 
@@ -37,9 +57,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }).addTo(map);
 
 
-    const binMarkers = {};
     let routingControl = null;
-    let allBins = [];
     let userMarker = null;
     let isFirstUpdate = true;
 
@@ -47,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     function updateRoute(vehicleLat, vehicleLng, bins) {
         console.log(bins);
 
-        
+
 
         // Clear previous route
         if (routingControl) {
@@ -120,9 +138,9 @@ document.addEventListener('DOMContentLoaded', async function () {
             .catch(err => {
                 console.error("Location update failed", err);
             });
-        
 
-        
+
+
 
 
     }
@@ -144,25 +162,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         );
     }
 
-    function updateBinMarker(bin) {
-        if (isNaN(bin.latitude) || isNaN(bin.longitude)) {
-            console.warn(`Invalid coordinates for bin ${bin.id}`);
-            return;
-        }
 
-        const iconUrl = bin.color === "red"
-            ? "/icons/icons8-location-35.png"
-            : "/icons/icons8-location-35_green.png";
-
-        const icon = L.icon({ iconUrl, iconSize: [30, 30], iconAnchor: [15, 30] });
-
-        if (binMarkers[bin.id]) map.removeLayer(binMarkers[bin.id]);
-
-        const marker = L.marker([bin.latitude, bin.longitude], { icon });
-        marker.bindPopup(`🗑️ Bin ID: ${bin.id}`);
-        marker.addTo(map);
-        binMarkers[bin.id] = marker;
-    }
 
 });
 

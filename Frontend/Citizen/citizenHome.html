@@ -34,8 +34,10 @@
     }
 
     body {
-      text-align: center;
       font-family: Arial, sans-serif;
+    }
+    .nbin{
+      text-align: center;
     }
   </style>
 </head>
@@ -90,7 +92,7 @@
   </div>
 
 <section class="citizen-info-section">
-  <h2>Welcome, Citizen!</h2>
+  <h2 id="welcome">Welcome, Citizen!</h2>
   <div class="citizen-grid">
     
     <!-- Disposal Tips -->
@@ -106,10 +108,7 @@
     <!-- Announcements -->
     <div class="citizen-card">
       <h3>📢 Announcements</h3>
-      <ul>
-        <li>Pickup delayed in Zone 2 due to rain</li>
-        <li>New recycling bins added in Zone 3</li>
-        <li>Holiday notice: No pickup on May 10</li>
+      <ul id="announcement-list">
       </ul>
     </div>
 
@@ -117,7 +116,7 @@
 </section>
 
 
-  <div>
+  <div class="nbin">
     <h1>Nearest BINs</h1>
     <div id="map"></div>
   </div>

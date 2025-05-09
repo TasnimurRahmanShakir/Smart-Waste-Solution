@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'monitoring',
     'mixedData',
     'depot',
-    'report',
+    'announcement',
 ]
 
 MIDDLEWARE = [
