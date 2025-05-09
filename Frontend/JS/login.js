@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             
         } catch (error) {
-            console.error('Login error:', error);
             alert('Login failed: ' + error.message);
         } finally {
             loginButton.disabled = false;
