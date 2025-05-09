@@ -37,16 +37,26 @@ class LoginAPI(APIView):
         
             try:
                 data = request.data
-                print(data)
                 serializer_class = LoginSerializer(data=data)
                 if serializer_class.is_valid():
                     email = serializer_class.validated_data['email']
                     password = serializer_class.validated_data['password']
-                    
+                    print(email, password)
+
+                    try:
+                        user = CustomUser.objects.get(email=email)
+                        print(user)
+                    except CustomUser.DoesNotExist:
+                        return Response({'message': 'Email not found.'}, status=400)
+
+                    if not user.check_password(password):
+                        print('incorrect password')
+                        return Response({'message': 'Incorrect password.'}, status=400)
                     user = authenticate(email=email, password=password)
+                    print(user)
                     if user is not None:
                         refresh = RefreshToken.for_user(user)
-
+                        
                         return Response({
                             'refresh': str(refresh),
                             'access': str(refresh.access_token),

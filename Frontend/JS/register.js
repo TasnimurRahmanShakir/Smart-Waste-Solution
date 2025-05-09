@@ -9,39 +9,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function verification() {
     let accessToken = localStorage.getItem('access_token');
+    const userTypeSection = document.getElementById('userTypeSection');
 
     if (!accessToken) {
-        document.getElementById('userTypeSection').style.display = 'none';
+        if (userTypeSection) userTypeSection.style.display = 'none';
         return;
     }
 
     const userData = await checkUser();
     if (!userData) {
         console.log("User data not found, Please login/register a new account.");
-        document.getElementById('userTypeSection').style.display = 'none';
+        if (userTypeSection) userTypeSection.style.display = 'none';
         return;
     }
 
     const userType = userData.user_type;
     console.log("User type:", userType);
     if (userType === 'admin') {
-        alert(window.location.href)
-        window.location.href = 'admin/adminHome.html'
-
+        window.location.href = 'admin/adminHome.html';
     } else if (userType === 'collector') {
-        //go to collector dashboard
+        // redirect to collector dashboard
     } else if (userType === 'citizen') {
-        //go to citizen dashboard
         console.log("Logout first to register a new account.");
     } else {
         console.log("Invalid user type:", userType);
     }
-
-
-
-
-
 }
+
 
 
 function initializePasswordValidation() {
@@ -130,7 +124,6 @@ async function registerUser() {
                 return;
             }
             window.location.href = "./login.html";
-            alert("Registration successful! Please log in.");
 
         } catch (error) {
             console.error('Registration error:', error);
