@@ -2,7 +2,7 @@ import { checkUser } from './auth.js';
 import { BASE_URL } from './config.js';
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
     // Top nav toggle
     document.getElementById("navToggle").addEventListener("click", () => {
@@ -21,7 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
         dropdown.classList.toggle('show');
 
     });
-
+    let userData = await checkUser()
+    if (!userData || userData.user_type !== 'admin') {
+        localStorage.setItem('redirectAfterLogin', window.location.href);
+        window.location.href = '../login.html';
+        return;
+    }
 
 
     get_summary();
@@ -30,11 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 async function get_summary() {
     console.log("Fetching summary data...");
-    const userData = await checkUser();
-    if (userData.user_type !== 'admin') {
-        console.log("User data not found, Please login/register a new account.");
-        return;
-    }
 
     try {
         const response = await fetch(`${BASE_URL}summary/admin-dashboard/`, {

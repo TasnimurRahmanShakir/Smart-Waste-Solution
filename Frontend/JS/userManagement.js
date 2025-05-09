@@ -22,10 +22,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     });
     let userData = await checkUser();
-    if (userData.user_type !== 'admin') {
-
+    if (!userData || userData.user_type !== 'admin') {
         localStorage.setItem('redirectAfterLogin', window.location.href);
-        window.location.href = '../login.html'
+        window.location.href = '../login.html';
+        return;
     }
 
     get_user_data();

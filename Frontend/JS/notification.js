@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (!userData) {
         localStorage.setItem('redirectAfterLogin', window.location.href);
         window.location.href = '../login.html';
+        return;
     }
 
     // Hide indicator if visiting notifications
