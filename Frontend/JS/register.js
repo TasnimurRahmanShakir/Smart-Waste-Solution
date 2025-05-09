@@ -124,7 +124,6 @@ async function registerUser() {
                 return;
             }
             window.location.href = "./login.html";
-            alert("Registration successful! Please log in.");
 
         } catch (error) {
             console.error('Registration error:', error);
