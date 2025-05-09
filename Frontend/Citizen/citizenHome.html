@@ -1,147 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Smart Waste Solution</title>
-    <link rel="stylesheet" href="../admin/admin.css" />
-    <!-- Font Awesome Link -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
-    <!-- Leaflet Routing Machine -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
-    />
-    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- Font Link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+  <title>Smart Waste Solution</title>
+  <link rel="stylesheet" href="../admin/admin.css" />
+  <!-- Font Awesome Link -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Leaflet Routing Machine -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
-  <body>
-    <header>
-      <section class="fixedHead">
-        <div class="logo-title-container">
-          <div class="logoArea">
-            <a href="#"><img src="../admin/images/logo.png" alt="Logo" /></a>
-          </div>
-          <div class="brand-text">
-            <h2>ZeroWaste Dynamic</h2>
-            <p>Complete Waste Solutions, Zero compromised</p>
-          </div>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Font Link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
+
+  <style>
+    #map {
+      height: 500px;
+      width: 800px;
+      border: 1px solid black;
+      margin: 20px auto;
+    }
+
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <section class="fixedHead">
+      <div class="logo-title-container">
+        <div class="logoArea">
+          <a href="#"><img src="../admin/images/logo.png" alt="Logo" /></a>
         </div>
-
-        <div class="menu-toggle" id="navToggle">
-          <i class="fas fa-bars"></i>
+        <div class="brand-text">
+          <h2>ZeroWaste Dynamic</h2>
+          <p>Complete Waste Solutions, Zero compromised</p>
         </div>
+      </div>
 
-        <nav class="options" id="navLinks">
-          <a href="#">HOME</a>
-          <a href="#">BLOGS</a>
-          <a href="#">ABOUT</a>
-          <a href="#">CONTACT</a>
-          <div class="profile">
-            <img src="../admin/images/man2.jpg" alt="Profile" />
-            <div class="dropdown">
-              <a href="#" id="logoutBtn">Logout</a>
-            </div>
-          </div>
-        </nav>
-      </section>
-    </header>
-
-    <div class="menuArea" id="sidebarMenu">
-      <div class="menu-toggle" id="sidebarToggle">
+      <div class="menu-toggle" id="navToggle">
         <i class="fas fa-bars"></i>
       </div>
-      <ul id="sidebarLinks">
-        <li><a href="./citizenHome.html">Home</a></li>
-        <li><a href="./requestFeedback.html">Request/Issue/Feedback</a></li>
 
-        <li>
-          <a href="./citizenNotification.html">
-            Notifications
-            <span
-              id="sidebarNotificationDot"
-              style="color: red; font-size: 20px; display: none"
-              >•</span
-            >
-          </a>
-        </li>
+      <nav class="options" id="navLinks">
+        <a href="#">HOME</a>
+        <a href="#">BLOGS</a>
+        <a href="#">ABOUT</a>
+        <a href="#">CONTACT</a>
+        <div class="profile">
+          <img src="../admin/images/man2.jpg" alt="Profile" />
+          <div class="dropdown">
+            <a href="#" id="logoutBtn">Logout</a>
+          </div>
+        </div>
+      </nav>
+    </section>
+  </header>
+
+  <div class="menuArea" id="sidebarMenu">
+    <div class="menu-toggle" id="sidebarToggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul id="sidebarLinks">
+      <li><a href="./citizenHome.html">Home</a></li>
+      <li><a href="./requestFeedback.html">Request/Issue/Feedback</a></li>
+      
+      <li>
+        <a href="./citizenNotification.html">
+          Notifications
+          <span id="sidebarNotificationDot" style="color: red; font-size: 20px; display: none">•</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+<section class="citizen-info-section">
+  <h2>Welcome, Citizen!</h2>
+  <div class="citizen-grid">
+    
+    <!-- Disposal Tips -->
+    <div class="citizen-card">
+      <h3>♻️ Waste Disposal Tips</h3>
+      <ul>
+        <li>Separate organic and inorganic waste</li>
+        <li>Use clear bags for recyclables</li>
+        <li>Don't mix batteries with regular waste</li>
       </ul>
     </div>
 
-    <section class="citizen-info-section">
-      <h2>Welcome, Citizen!</h2>
-      <div class="citizen-grid">
-        <!-- Disposal Tips -->
-        <div class="citizen-card">
-          <h3>♻️ Waste Disposal Tips</h3>
-          <ul>
-            <li>Separate organic and inorganic waste</li>
-            <li>Use clear bags for recyclables</li>
-            <li>Don't mix batteries with regular waste</li>
-          </ul>
-        </div>
+    <!-- Announcements -->
+    <div class="citizen-card">
+      <h3>📢 Announcements</h3>
+      <ul>
+        <li>Pickup delayed in Zone 2 due to rain</li>
+        <li>New recycling bins added in Zone 3</li>
+        <li>Holiday notice: No pickup on May 10</li>
+      </ul>
+    </div>
 
-        <!-- Announcements -->
-        <div class="citizen-card">
-          <h3>📢 Announcements</h3>
-          <ul>
-            <li>Pickup delayed in Zone 2 due to rain</li>
-            <li>New recycling bins added in Zone 3</li>
-            <li>Holiday notice: No pickup on May 10</li>
-          </ul>
-        </div>
+  </div>
+</section>
+
+
+  <div>
+    <h1>Nearest BINs</h1>
+    <div id="map"></div>
+  </div>
+  <script type="module" src="../JS/notificationsSocket.js"></script>
+  <script type="module" src="../JS/citizenHome.js"></script>
+  <script>
+
+  </script>
+
+  <footer>
+    <section class="foot">
+      <p>&copy; 2025 Smart Waste Solution</p>
+      <div class="rightSocial">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
+        <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
       </div>
     </section>
-    <section>
-      <div class="nBin">
-        <h1>Nearest BINs</h1>
-        <div id="map"></div>
-      </div>
-      <script type="module" src="../JS/notificationsSocket.js"></script>
-      <script type="module" src="../JS/citizenHome.js"></script>
-      <script></script>
-    </section>
+  </footer>
 
-    <footer>
-      <section class="foot">
-        <p>&copy; 2025 Smart Waste Solution</p>
-        <div class="rightSocial">
-          <a href="#"><i class="fa-brands fa-facebook"></i></a>
-          <a href="#"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-          <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
-          <a href="#"><i class="fa-brands fa-pinterest"></i></a>
-          <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-          <a href="#"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#"><i class="fa-brands fa-youtube"></i></a>
-        </div>
-      </section>
-    </footer>
-  </body>
+
+</body>
+
 </html>
