@@ -1,17 +1,12 @@
-# Ignore compiled Python files
-**/__pycache__/
-*.pyc
-
-
-# Ignore environment-related files
+# Environment folder
+env/
 .env
-venv/
 
-# Ignore static files generated during collectstatic
-staticfiles/
+# Backend image uploads
+Backend/images/
 
-# Ignore db files (if using SQLite for dev)
-db.sqlite3
-
-# Ignore media files
-media/
+# Frontend test/demo files
+hello.js
+hi.js
+index.html
+register.html
