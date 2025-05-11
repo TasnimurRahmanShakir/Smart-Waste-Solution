@@ -1,13 +1,7 @@
 # Environment folder
-
-__pycache__/
-*.pyc
-
-venv/
 env/
 .env
 
-.gitignore
 # Backend image uploads
 Backend/images/
 
