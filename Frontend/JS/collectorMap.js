@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         } else {
             userMarker = L.marker([lat, lng], {
                 icon: L.icon({
-                    iconUrl: "../../icons/icons8-pickup-35.png",
+                    iconUrl: "../../icons/icons8-garbage-truck-35.png",
                     iconSize: [35, 35],
                     iconAnchor: [17, 35],
                 })
@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             map.setView([lat, lng], 13);
             isFirstUpdate = false;
         }
+        console.log('allBins', allBins)
         updateRoute(lat, lng, allBins);
 
         // Send location to backend (uncomment when needed)

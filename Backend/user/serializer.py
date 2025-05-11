@@ -47,7 +47,8 @@ class UserSerializer(serializers.ModelSerializer):
                 'capacity': vehicle.capacity,
                 'status': vehicle.status,
                 'latitude': vehicle.latitude,
-                'longitude': vehicle.longitude
+                'longitude': vehicle.longitude,
+                'license_no': vehicle.license_no
             }
         return None
     def to_representation(self, instance):

@@ -37,6 +37,12 @@ class VehicleDetailView(APIView):
         except Vehicle.DoesNotExist:
             return Response({"error": "No vehicle found for this user"}, status=404)
         
+class AvailableVehicleList(APIView):
+    def get(self, request):
+        vehicles = Vehicle.objects.filter(status__in=['available', 'active'], assigned_to__isnull=True)
+        serializer = VehicleSerializer(vehicles, many=True)
+        return Response(serializer.data)
+        
 class VehicleAssignView(APIView):
     permission_class = [IsAuthenticated]
     def patch(self, request, pk):

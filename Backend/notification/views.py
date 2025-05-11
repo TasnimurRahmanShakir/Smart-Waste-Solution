@@ -11,6 +11,6 @@ class NotificationListView(APIView):
     def get(self, request):
         notifications = Notification.objects.filter(
             where_to_send=request.user
-        ).order_by('-created_at')[:20]
+        ).order_by('created_at')[:20]
         serializer = NotificationSerializer(notifications, many=True)
         return Response(serializer.data)

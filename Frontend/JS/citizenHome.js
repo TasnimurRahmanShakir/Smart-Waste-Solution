@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         } else {
             userMarker = L.marker([lat, lng], {
                 icon: L.icon({
-                    iconUrl: "../../icons/icons8-pickup-35.png",
+                    iconUrl: "../../icons/icons8-user-location-35.png",
                     iconSize: [35, 35],
                     iconAnchor: [17, 35],
                 })

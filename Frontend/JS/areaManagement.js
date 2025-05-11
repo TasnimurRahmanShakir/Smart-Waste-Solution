@@ -128,10 +128,15 @@ addBinBtn.addEventListener("click", () => {
         })
             .then(response => response.json()) 
             .then(data => {
-                if (data.error) { 
-                    messageBox.textContent = data.error;
+                if (data.error) {
+                    const errorMessage = typeof data.error === 'string'
+                        ? data.error
+                        : Object.values(data.error).flat().join('\n');
+
+                    messageBox.textContent = errorMessage;
                     messageBox.style.color = "red";
-                } else {
+                }
+                 else {
                     messageBox.textContent = "✅ Area added successfully!";
                     messageBox.style.color = "green";
                     form.reset();

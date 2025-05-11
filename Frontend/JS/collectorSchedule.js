@@ -59,20 +59,59 @@ async function get_schedule() {
 function renderScheduleTable(schedules) {
     const tbody = document.querySelector('.table_body');
     tbody.innerHTML = '';
+
     schedules.forEach(item => {
         const row = document.createElement('tr');
         row.dataset.scheduleId = item.id;
+
+        // Convert bin list to string of IDs
+        const binIds = Array.isArray(item.bins)
+            ? item.bins.map(bin => bin.bin_id || bin.id).join(', ')
+            : "Not Available";
+
+        // Create Accept and Complete buttons
+        const acceptButton = `<button class="acceptBtn details-btn" value="${item.id}">Accept</button>`;
+        const completeButton = `
+            <button class="completeBtn details-btn" 
+                value="${item.id}" 
+                ${item.status === 'completed' ? 'disabled' : ''}>
+                Complete
+            </button>`;
+
         row.innerHTML = `
             <td>${item.schedule_type || "Not Available"}</td>
             <td>${item.area?.area_name || "Not Available"}</td>
-            <td>${item.bins?.bin_id || "Not Available"}</td>
+            <td>${binIds}</td>
             <td>${item.status || "Not Available"}</td>
-            <td><button class="acceptBtn details-btn" value=${item.id}>Accept</button></td>
-            <td><button class="completeBtn details-btn" value=${item.id}>Complete</button></td>
+            <td>${acceptButton}</td>
+            <td>${completeButton}</td>
         `;
+
         tbody.appendChild(row);
     });
+
+    // Add event listeners after table is rendered
+    document.querySelectorAll('.completeBtn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            if (e.target.disabled) {
+                alert("Collection already completed!");
+                return;
+            }
+            const scheduleId = e.target.value;
+            // 🔥 Your "mark as complete" logic here
+            console.log(`Completing schedule ${scheduleId}...`);
+        });
+    });
+
+    document.querySelectorAll('.acceptBtn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const scheduleId = e.target.value;
+            // 🔥 Your "accept schedule" logic here
+            console.log(`Accepting schedule ${scheduleId}...`);
+        });
+    });
 }
+
 
 //===============================
 // Accept Schedule
@@ -140,6 +179,8 @@ document.getElementById('schedule_form').addEventListener('submit', async functi
     const userId = userData.id;
 
     try {
+
+
         const response = await fetch(`${BASE_URL}depot/create/`, {
             method: 'POST',
             headers: {

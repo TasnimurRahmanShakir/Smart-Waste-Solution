@@ -38,13 +38,13 @@ class ScheduleView(APIView):
 class ScheduleCreate(APIView):
     def post(self, request):
         data = request.data.copy()
-
         error_response = self._validate_request_data(data)
         if error_response:
             return error_response
 
         if 'area' in data:
             bin_ids = self._process_area_data(data)
+            
             if isinstance(bin_ids, Response):
                 return bin_ids
             data['bins'] = bin_ids
@@ -53,7 +53,7 @@ class ScheduleCreate(APIView):
             bin_response = self._process_requested_bin(data)
             if bin_response:
                 return bin_response
-
+        print(data)
         serializer = ScheduleSerializer(data=data)
         if serializer.is_valid():
             schedule = serializer.save()
@@ -76,6 +76,7 @@ class ScheduleCreate(APIView):
         if self._area_has_active_schedule(data['area']):
             return Response({"error": f"Schedule for this area {data['area']} already exists."}, status=status.HTTP_400_BAD_REQUEST)
         bin_ids = self._get_bins_in_area(data['area'])
+        
         if not bin_ids:
             return Response({"error": "No bins found for the selected area."}, status=status.HTTP_400_BAD_REQUEST)
         return bin_ids

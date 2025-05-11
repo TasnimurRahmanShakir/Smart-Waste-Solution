@@ -8,7 +8,7 @@ from area.models import AreaModel
 from area.serializers import AreaSerializer
 
 class ScheduleSerializer(serializers.ModelSerializer):
-    bins = BinSerializer(many=True, read_only=True)
+    bins = serializers.PrimaryKeyRelatedField(queryset=Bin.objects.all(), many=True)
     requested_by = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all(), required=False)
     accepted_by = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all(), required=False)
     area = serializers.PrimaryKeyRelatedField(queryset=AreaModel.objects.all(), required=False)
@@ -26,6 +26,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
         rep = super().to_representation(instance)
         rep['requested_by'] = UserSerializer(instance.requested_by).data if instance.requested_by else None
         rep['accepted_by'] = UserSerializer(instance.accepted_by).data if instance.accepted_by else None 
-        rep['area'] = AreaSerializer(instance.area).data if instance.area else None 
+        rep['area'] = AreaSerializer(instance.area).data if instance.area else None
+        rep['bins'] = BinSerializer(instance.bins.all(), many=True).data
         return rep
     

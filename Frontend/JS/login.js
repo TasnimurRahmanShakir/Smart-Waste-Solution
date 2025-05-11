@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const loginButton = document.getElementById("login_button");
 
     // localStorage.removeItem('redirectAfterLogin')
-
+    console.log(localStorage.removeItem('redirectAfterLogin'))
 
     loginForm.addEventListener("submit", async function (event) {
         event.preventDefault(); // Prevent the form from submitting the default way
@@ -62,15 +62,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log(window.location.href)
                     window.location.href = './Citizen/citizenHome.html';
                 }
-            } else if (data.user.user_type === 'collector') {
+            } else if (data.user.user_type === 'collector' || data.user.user_type === 'helper') {
                 const redirectUrl = localStorage.getItem('redirectAfterLogin');
                 if (redirectUrl) {
                     console.log(redirectUrl)
                     localStorage.removeItem('redirectAfterLogin');
                     window.location.href = redirectUrl;
                 } else {
-                    console.log(window.location.href)
-                    alert(window.location.href)
                     window.location.href = './Collector/collectorHome.html';
                 }
             }

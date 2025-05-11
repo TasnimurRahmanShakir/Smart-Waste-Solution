@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const areaUrl = `${BASE_URL}area/`;
 
     // Map Setup
-    const map = L.map("map").setView([46.6895, -119.23395], 9);
+    const map = L.map("map").setView([23.8103, 90.4125], 9);
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: "&copy; OpenStreetMap contributors",
@@ -67,13 +67,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     function updateVehicleMarker(vehicle) {
+        console.log(vehicle)
         if (isNaN(vehicle.latitude) || isNaN(vehicle.longitude)) {
             console.warn(`Invalid coordinates for vehicle ${vehicle.id}`);
             return;
         }
 
         const icon = L.icon({
-            iconUrl: "/icons/icons8-pickup-35.png",
+            iconUrl: "/icons/icons8-garbage-truck-35.png",
             iconSize: [35, 35],
             iconAnchor: [17, 35],
         });
@@ -81,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (vehicleMarkers[vehicle.id]) map.removeLayer(vehicleMarkers[vehicle.id]);
 
         const marker = L.marker([vehicle.latitude, vehicle.longitude], { icon });
-        marker.bindPopup(`🚛 Vehicle ID: ${vehicle.id}<br>Status: ${vehicle.status}`);
+        marker.bindPopup(`🚛 Vehicle ID: ${vehicle.license_no}<br>Status: ${vehicle.status}`);
         marker.addTo(map);
         vehicleMarkers[vehicle.id] = marker;
     }
@@ -101,7 +102,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             const bins = await binRes.json();
             const vehicles = await vehicleRes.json();
-
             bins.forEach(updateBinMarker);
             vehicles.forEach(updateVehicleMarker);
         } catch (error) {

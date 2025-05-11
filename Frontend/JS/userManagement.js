@@ -199,7 +199,7 @@ async function user_profile(id) {
                 for (let el of collectorElements) {
                     el.style.display = 'inline';
                 }
-                document.getElementById("assignedVehicle").textContent = data.vehicle?.vehicle_type || "Not assigned";
+                document.getElementById("assignedVehicle").textContent = data.vehicle?.license_no || "Not assigned";
                 document.getElementById("assignedArea").textContent = data.area?.area_name || "Not assigned";
             } else {
                 console.log("Hello")
@@ -306,11 +306,12 @@ async function assign_vehicle(id, email, phone) {
 
 async function populateVehicleDropdown() {
     let vehicleData = await get_vehicle()
+    
     const dropdown = document.getElementById("vehicle");
     dropdown.innerHTML = '<option value="">--Select One--</option>';
 
     vehicleData.forEach(vehicle => {
-        if (vehicle.assigned_to){
+        if (vehicle){
             const option = document.createElement("option");
             option.value = vehicle.id;
             option.textContent = vehicle.vehicle_type+" "+vehicle.license_no;
@@ -504,7 +505,7 @@ async function get_area() {
 
 async function get_vehicle() {
     try {
-        const response = await fetch(`${BASE_URL}vehicle/`, {
+        const response = await fetch(`${BASE_URL}vehicle/available/`, {
             headers: {
                 'Content-Type': 'application/json',
                 'authorization': `Bearer ${localStorage.getItem('access_token')}`
