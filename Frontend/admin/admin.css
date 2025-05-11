@@ -173,7 +173,7 @@ header {
 
 /* Page section content */
 section {
-  padding: 40px 20px;
+  padding: 40px 0px;
   max-width: 1000px;
   margin: auto;
 }
@@ -742,4 +742,68 @@ footer{
 }
 .nBin{
   text-align: center;
+}
+
+/* Send Notification */
+.notification-section {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.notification-section h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #2e7d32;
+}
+
+.notification-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .form-group {
+    width: auto;
+    flex: 1 1 auto;
+    min-width: 200px;
+  }
+
+  #message {
+    min-width: 250px;
+  }
+}
+
+select,
+textarea,
+button {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.submit-btn {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #1b5e20;
+}
+#message{
+  height: 45px;
+}
+.submit-btn{
+  margin-top: 39px;
 }

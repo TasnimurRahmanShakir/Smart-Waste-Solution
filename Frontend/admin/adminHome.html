@@ -79,6 +79,32 @@
       </ul>
     </div>
 
+    <section class="notification-section">
+  <h2>Send Announcement to Area</h2>
+  <form class="notification-form" action="#" method="post">
+    <div class="form-group">
+      <label for="areaSelect">Select Area:</label>
+      <select id="areaSelect" name="area">
+        <option value="">-- Choose an area --</option>
+        <option value="north">North Zone</option>
+        <option value="south">South Zone</option>
+        <option value="east">East Zone</option>
+        <option value="west">West Zone</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" placeholder="Enter your message..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <button class="submit-btn" type="submit">Submit</button>
+    </div>
+  </form>
+</section>
+
+
     <section class="stats-container">
       <div class="stat-card">
         <h2>Today's Pickups</h2>
@@ -116,7 +142,6 @@
     <script type="module" src="../JS/notificationsSocket.js"></script>
 
     <script type="module" src="../JS/adminHome.js"></script>
-    
 
     <footer>
       <section class="foot">
@@ -133,6 +158,5 @@
         </div>
       </section>
     </footer>
-
   </body>
 </html>
