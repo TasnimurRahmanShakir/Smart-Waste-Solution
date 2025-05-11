@@ -174,9 +174,9 @@ class ScheduleUpdate(APIView):
                     for admin in CustomUser.objects.filter(user_type='admin'):
                         notification = Notification.objects.create(
                             where_to_send=admin,
-                            message=f"{schedule.area} is now completed. Schedule ID: {schedule.id}",
+                            message=f"{schedule.area.area_name} is now completed. Schedule ID: {schedule.id}",
                         )
-                        send_notification_to_admin( f"{schedule.area} is now completed. Schedule ID: {schedule.id}", notification.created_at)
+                        send_notification_to_admin( f"{schedule.area.area_name} is now completed. Schedule ID: {schedule.id}", notification.created_at)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

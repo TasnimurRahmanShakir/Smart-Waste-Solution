@@ -126,6 +126,7 @@ async function populateAreaDropdown() {
         console.error("Error loading areas:", error.message);
     }
 }
+
 document.getElementById('announcementForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 

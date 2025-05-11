@@ -3,6 +3,8 @@ from notification.service import send_notification_to_admin, send_notification_t
 from schedule.models import Schedule
 from user.models import CustomUser
 from depot.models import Depot
+from area.models import AreaModel
+from area.serializers import AreaSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -86,3 +88,63 @@ class AdminDashboardView(APIView):
         }
         return Response(data, status=200)
    
+class CollectorDashboardView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get_weekly_collection(self, collector):
+        today = now().date()
+        start_of_week = today - timedelta(days=today.weekday())
+        weekly_data = []
+
+        for i in range(7):
+            day = start_of_week + timedelta(days=i)
+            weight = Depot.objects.filter(
+                collected_at=day,
+                submitted_by=collector
+            ).aggregate(Sum('weight'))['weight__sum'] or 0
+            weekly_data.append(round(weight, 2))
+
+        return {
+            'labels': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            'data': weekly_data
+        }
+
+    def get_monthly_schedule_stats(self, collector):
+        today = now().date()
+        start_of_month = today.replace(day=1)
+
+        missed_count = Schedule.objects.filter(
+            accepted_by=collector,
+            status='missed',
+            created_at__date__gte=start_of_month
+        ).count()
+
+        completed_count = Schedule.objects.filter(
+            accepted_by=collector,
+            status='completed',
+        ).count()
+
+        return missed_count, completed_count
+
+    def get(self, request):
+        if request.user.user_type != 'collector':
+            return Response({"error": "Access denied"}, status=403)
+
+        collector = request.user
+
+        weekly_collection = self.get_weekly_collection(collector)
+        missed_monthly, completed_monthly = self.get_monthly_schedule_stats(collector)
+
+        area_qs = AreaModel.objects.filter(id=request.user.area_id)
+        area = AreaSerializer(instance=area_qs, many=True)
+        print(area.data[0]['area_name'])
+
+        
+        data = {
+            'weekly_collection': weekly_collection,
+            'monthly_missed': missed_monthly,
+            'monthly_completed': completed_monthly,
+            'area_details' : f'Area-{area.data[0]['id']} {area.data[0]['area_name']}'
+        }
+
+        return Response(data, status=200)

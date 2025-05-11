@@ -62,7 +62,7 @@ function setupWebSocket() {
 
     socket.onmessage = function (event) {
         const data = JSON.parse(event.data);
-
+        console.log(data)
         if (!window.location.pathname.includes("notification.html")) {
             showNotificationIndicator();
         }

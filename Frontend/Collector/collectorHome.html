@@ -1,98 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Smart Waste Solution</title>
-    <link rel="stylesheet" href="../admin/admin.css" />
-    <!-- Font Awesome Link -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- Font Link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <body>
-    <header>
-      <section class="fixedHead">
-        <div class="logo-title-container">
-          <div class="logoArea">
-            <a href="#"><img src="images/logo.png" alt="Logo" /></a>
-          </div>
-          <div class="brand-text">
-            <h2>ZeroWaste Dynamic</h2>
-            <p>Complete Waste Solutions, Zero compromised</p>
-          </div>
+  <title>Smart Waste Solution</title>
+  <link rel="stylesheet" href="../admin/admin.css" />
+  <!-- Font Awesome Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Font Link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
+  <style>
+    .message-box {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .message-box.success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .message-box.error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+
+</head>
+
+<body>
+  <header>
+    <section class="fixedHead">
+      <div class="logo-title-container">
+        <div class="logoArea">
+          <a href="#"><img src="images/logo.png" alt="Logo" /></a>
         </div>
-
-        <div class="menu-toggle" id="navToggle">
-          <i class="fas fa-bars"></i>
+        <div class="brand-text">
+          <h2>ZeroWaste Dynamic</h2>
+          <p>Complete Waste Solutions, Zero compromised</p>
         </div>
+      </div>
 
-        <nav class="options" id="navLinks">
-          <a href="#">HOME</a>
-          <a href="#">ABOUT</a>
-          <a href="#">CONTACT</a>
-          <div class="profile">
-            <img src="images/man2.jpg" alt="Profile" />
-            <div class="dropdown">
-              <a href="#" id="logoutBtn">Logout</a>
-            </div>
-          </div>
-        </nav>
-      </section>
-    </header>
-
-    <div class="menuArea" id="sidebarMenu">
-      <div class="menu-toggle" id="sidebarToggle">
+      <div class="menu-toggle" id="navToggle">
         <i class="fas fa-bars"></i>
       </div>
-      <ul id="sidebarLinks">
-        <li><a href="./collectorHome.html">Home</a></li>
-        <li><a href="./collectorSchedule.html">Schedule</a></li>
-        <li><a href="./map.html">Map</a></li>
-        <li>
-          <a href="./collectorNotification.html">
-            Notifications
-            <span
-              id="sidebarNotificationDot"
-              style="color: red; font-size: 20px; display: none"
-              >•</span
-            >
-          </a>
-        </li>
-        <li><a href="report.html">Reports</a></li>
-      </ul>
-    </div>
 
-<main class="collector-main">
-    <h2>Welcome, Collector!</h2>
+      <nav class="options" id="navLinks">
+        <a href="#">HOME</a>
+        <a href="#">ABOUT</a>
+        <a href="#">CONTACT</a>
+        <div class="profile">
+          <img src="images/man2.jpg" alt="Profile" />
+          <div class="dropdown">
+            <a href="#" id="logoutBtn">Logout</a>
+          </div>
+        </div>
+      </nav>
+    </section>
+  </header>
+
+  <div class="menuArea" id="sidebarMenu">
+    <div class="menu-toggle" id="sidebarToggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul id="sidebarLinks">
+      <li><a href="./collectorHome.html">Home</a></li>
+      <li><a href="./collectorSchedule.html">Schedule</a></li>
+      <li><a href="./map.html">Map</a></li>
+      <li>
+        <a href="./collectorNotification.html">
+          Notifications
+          <span id="sidebarNotificationDot" style="color: red; font-size: 20px; display: none">•</span>
+        </a>
+      </li>
+      <li><a href="report.html">Reports</a></li>
+    </ul>
+  </div>
+
+  <main class="collector-main">
+    <h2 id="welcome">Welcome, Collector!</h2>
     <div class="collector-dashboard">
       <div class="collector-card">
         <i class="fas fa-calendar-check"></i>
-        <h3>Today's Pickups</h3>
-        <p>18</p>
+        <h3>Completed Task</h3>
+        <p id="monthly_completed">18</p>
       </div>
       <div class="collector-card">
         <i class="fas fa-clock"></i>
         <h3>Missed Tasks</h3>
-        <p>3</p>
+        <p id="total_missed">3</p>
       </div>
       <div class="collector-card">
         <i class="fas fa-map-marked-alt"></i>
         <h3>Assigned Zone</h3>
-        <p>Zone 4 - Mirpur</p>
+        <p id="area_details">Zone 4 - Mirpur</p>
       </div>
     </div>
 
@@ -100,60 +106,53 @@
   </main>
 
   <section class="notification-section">
-      <h2>Create Announcement</h2>
-      <form class="notification-form" action="#" method="post">
-        <div class="form-group">
-          <label for="areaSelect">Select Area:</label>
-          <select id="areaSelect" name="area">
-            <option value="">-- Choose an area --</option>
-            <option value="north">North Zone</option>
-            <option value="south">South Zone</option>
-            <option value="east">East Zone</option>
-            <option value="west">West Zone</option>
-          </select>
-        </div>
+    <h2>Create Announcement of Emergency Schedule</h2>
+    <div id="messageBox" class="message-box" style="display: none;"></div>
+    <form id="announcementForm" class="notification-form" action="#" method="post">
+      <div class="form-group">
+        <label for="bin_id">Bin ID</label>
+        <input type="number" name="bin_id" id="bin_id">
+      </div>
 
-        <div class="form-group">
-          <label for="message">Message:</label>
-          <textarea
-            id="message"
-            name="message"
-            placeholder="Enter your message..."
-          ></textarea>
-        </div>
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" placeholder="Enter your message..."></textarea>
+      </div>
 
-        <div class="form-group">
-          <button class="submit-btn" type="submit">Submit</button>
-        </div>
-      </form>
+      <div class="form-group">
+        <button class="submit-btn" type="submit">Submit</button>
+      </div>
+    </form>
+  </section>
+
+
+  <section class="graph-section">
+    <h2>Waste Collection Overview (This Week)</h2>
+    <canvas id="wasteGraph"></canvas>
+  </section>
+
+  <!-- Link Chart.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="../JS/notificationsSocket.js"></script>
+  <script type="module" src="../JS/collectorHome.js"></script>
+
+
+  <footer>
+    <section class="foot">
+      <p>&copy; 2025 Smart Waste Solution</p>
+      <div class="rightSocial">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
+        <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+        <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
     </section>
+  </footer>
 
-    <section class="graph-section">
-      <h2>Waste Collection Overview (This Week)</h2>
-      <canvas id="wasteGraph"></canvas>
-    </section>
+</body>
 
-    <!-- Link Chart.js library -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="../JS/notificationsSocket.js"></script>
-    <script type="module" src="../JS/collectorHome.js"></script>
-    
-
-    <footer>
-      <section class="foot">
-        <p>&copy; 2025 Smart Waste Solution</p>
-        <div class="rightSocial">
-          <a href="#"><i class="fa-brands fa-facebook"></i></a>
-          <a href="#"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-          <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
-          <a href="#"><i class="fa-brands fa-pinterest"></i></a>
-          <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-          <a href="#"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#"><i class="fa-brands fa-youtube"></i></a>
-        </div>
-      </section>
-    </footer>
-
-  </body>
 </html>
