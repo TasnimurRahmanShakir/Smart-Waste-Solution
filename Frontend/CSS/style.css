@@ -421,3 +421,6 @@ footer a:hover {
 .rightSocial {
   float: right;
 }
+html {
+  scroll-behavior: smooth;
+}
