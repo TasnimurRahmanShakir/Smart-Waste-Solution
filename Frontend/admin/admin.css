@@ -807,3 +807,115 @@ button {
 .submit-btn{
   margin-top: 31px;
 }
+
+/* Waste Collector */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  color: #333;
+}
+
+.collector-header {
+  background-color: #00796b;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.collector-header .logo {
+  display: flex;
+  align-items: center;
+}
+
+.collector-header .logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.collector-header nav a {
+  color: #fff;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.collector-main {
+  padding: 2rem;
+  text-align: center;
+}
+
+.collector-dashboard {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.collector-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 220px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.collector-card i {
+  font-size: 2rem;
+  color: #00796b;
+  margin-bottom: 0.5rem;
+}
+
+.collector-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.collector-card p {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.quick-links h3 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.link-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  background-color: #00796b;
+  color: white;
+  padding: 0.8rem 1.2rem;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #005f56;
+}
+
+.collector-footer {
+  background-color: #eee;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 3rem;
+}
+
+
