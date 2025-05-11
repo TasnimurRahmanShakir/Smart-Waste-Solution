@@ -76,31 +76,56 @@
       </ul>
     </div>
 
-    <section class="stats-container">
-      <div class="stat-card">
-        <h2>Today's Pickups</h2>
-        <p id="today_pickup">120</p>
+<main class="collector-main">
+    <h2>Welcome, Collector!</h2>
+    <div class="collector-dashboard">
+      <div class="collector-card">
+        <i class="fas fa-calendar-check"></i>
+        <h3>Today's Pickups</h3>
+        <p>18</p>
       </div>
-      <div class="stat-card">
-        <h2>Pending Pickups</h2>
-        <p id="pending_pickup">15</p>
+      <div class="collector-card">
+        <i class="fas fa-clock"></i>
+        <h3>Missed Tasks</h3>
+        <p>3</p>
       </div>
-      <div class="stat-card">
-        <h2>Missed Pickups</h2>
-        <p id="missed_pickup">3</p>
+      <div class="collector-card">
+        <i class="fas fa-map-marked-alt"></i>
+        <h3>Assigned Zone</h3>
+        <p>Zone 4 - Mirpur</p>
       </div>
-      <div class="stat-card">
-        <h2>Total Users</h2>
-        <p id="total_user">850</p>
-      </div>
-      <div class="stat-card">
-        <h2>Total Waste Collected</h2>
-        <p id="total_waste">5,200 kg</p>
-      </div>
-      <div class="stat-card">
-        <h2>Total Collectors</h2>
-        <p id="total_collector">423</p>
-      </div>
+    </div>
+
+    </section>
+  </main>
+
+  <section class="notification-section">
+      <h2>Send Announcement to Area</h2>
+      <form class="notification-form" action="#" method="post">
+        <div class="form-group">
+          <label for="areaSelect">Select Area:</label>
+          <select id="areaSelect" name="area">
+            <option value="">-- Choose an area --</option>
+            <option value="north">North Zone</option>
+            <option value="south">South Zone</option>
+            <option value="east">East Zone</option>
+            <option value="west">West Zone</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message:</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Enter your message..."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <button class="submit-btn" type="submit">Submit</button>
+        </div>
+      </form>
     </section>
 
     <section class="graph-section">
