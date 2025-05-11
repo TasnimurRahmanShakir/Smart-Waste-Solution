@@ -15,6 +15,25 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
+  <style>
+    .message-box {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    .message-box.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .message-box.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+  </style>
 </head>
 
 <body>
@@ -68,15 +87,14 @@
 
   <section class="notification-section">
     <h2>Send Announcement to Area</h2>
-    <form class="notification-form" action="#" method="post">
+    <div id="messageBox" class="message-box" style="display:none;"></div>
+
+    <form class="notification-form" id="announcementForm" action="#" method="post">
       <div class="form-group">
         <label for="areaSelect">Select Area:</label>
         <select id="areaSelect" name="area">
           <option value="">-- Choose an area --</option>
-          <option value="north">North Zone</option>
-          <option value="south">South Zone</option>
-          <option value="east">East Zone</option>
-          <option value="west">West Zone</option>
+          
         </select>
       </div>
 
