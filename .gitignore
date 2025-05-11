@@ -1,4 +1,15 @@
 # Environment folder
+# Ignore Python cache files
+**/__pycache__/
+*.py[cod]
+
+# Ignore virtual environment
+venv/
+
+# Ignore Django migrations cache (optional, only if not needed in version control)
+*/migrations/__pycache__/
+
+
 env/
 .env
 
