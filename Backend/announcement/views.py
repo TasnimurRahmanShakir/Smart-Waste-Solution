@@ -82,7 +82,7 @@ class CollectorAnnouncementCreateView(APIView):
             ).select_related('requested_by').first()
 
             if not schedule:
-                return Response({"error": "You are not accepted emergency schedule found for this bin."}, status=404)
+                return Response({"error": "You are not accepted emergency schedule for this bin."}, status=404)
 
             requested_user = schedule.requested_by
             if not requested_user:
